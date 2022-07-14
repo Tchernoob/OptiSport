@@ -34,7 +34,7 @@ class Partner
     #[ORM\Column(type: Types::TEXT)]
     private ?string $url = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $logo = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -48,6 +48,9 @@ class Partner
 
     #[ORM\ManyToMany(targetEntity: ClientMods::class, inversedBy: 'partners')]
     private Collection $modules;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated_at = null;
 
     public function __construct()
     {
@@ -218,6 +221,18 @@ class Partner
     public function removeModule(ClientMods $module): self
     {
         $this->modules->removeElement($module);
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

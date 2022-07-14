@@ -18,8 +18,8 @@ class Structure
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
     #[ORM\Column]
+
     private ?bool $is_active = null;
 
     #[ORM\Column(length: 255)]
@@ -34,7 +34,7 @@ class Structure
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $logo = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -53,6 +53,9 @@ class Structure
 
     #[ORM\ManyToMany(targetEntity: ClientMods::class, inversedBy: 'structures')]
     private Collection $modules;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated_at = null;
 
     public function __construct()
     {
@@ -216,6 +219,18 @@ class Structure
     public function removeModule(ClientMods $module): self
     {
         $this->modules->removeElement($module);
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {% for partner in activePartners  %}
+        <p>{{ partner.name }}</p>
+        <p>{{  partner.description }}</p>
+
+    {% endfor %}
+{% endblock %}
