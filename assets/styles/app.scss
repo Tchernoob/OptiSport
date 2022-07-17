@@ -2,5 +2,27 @@
 
 html, body {
   background-color: #bcbebf;
-  margin : 1rem;
+}
+
+footer {
+  color: white;
+}
+
+footer > .container  {
+  text-align: center;
+}
+
+.main-header {
+  margin: 0 0 44px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-header h1 {
+  position: relative;
+  float: left;
+  margin: 0px 0 22px 0;
+  padding: 5.5px 0 5.5px 55px;
+  line-height: 32px;
+  font-size: 1.8em;
 }
