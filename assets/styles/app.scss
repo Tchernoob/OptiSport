@@ -1,5 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
+/* --- Theme Configuration --- */
+@import "../styles/setup-optisport/setup.scss";
 html, body {
   background-color: #bcbebf;
 }
@@ -18,11 +20,6 @@ footer > .container  {
   justify-content: center;
   align-items: center;
 }
-.main-header h1 {
-  position: relative;
-  float: left;
-  margin: 0px 0 22px 0;
-  padding: 5.5px 0 5.5px 55px;
-  line-height: 32px;
-  font-size: 1.8em;
+.table-container {
+  margin-bottom: 22px;
 }

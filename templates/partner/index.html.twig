@@ -3,34 +3,88 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Partenaires</th>
-                <th scope="col">Status</th>
-                <th scope="col">Handle</th>
-            </tr>
-            </thead>
-            <tbody class="table-group-divider">
-            {% for partner in partners  %}
-                <tr>
-                    <th scope="row"> {{ partner.id }}</th>
-                    <td> {{ partner.name }}</td>
-                    {% if partner.isActive %}
-                        <td>Actif</td>
-                    {% else %}
-                        <td>Inactif</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% for partner in activePartners  %}
-        <p>{{ partner.name }}</p>
-        <p>{{  partner.description }}</p>
+    <header class="main-header">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#people-circle"></use></svg>
+        <h1>Partenaires</h1>
+    </header>
 
-    {% endfor %}
+    <section class="module partner">
+        <div class="module-content">
+            <nav class="list-filters">
+                <h3>Filtres</h3>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nom Partenaire</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Statut Partenaire</label>
+                            <select class="form-control selectpicker" title="">
+                                <option>actif</option>
+                                <option>Inactif</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email Partenaire</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-submit">
+                            <button type="button" class="btn btn-outline-primary" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
+                            <button type="button" class="btn btn-outline-success" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <h3>{{ pluralize(partners|length, 'Partenaire', 'Partenaires') }}</h3>
+
+            <div class="container table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Partenaires</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    {% for partner in partners  %}
+                        <tr>
+                            <td scope="row"> {{ partner.id }}</td>
+                            <td> {{ partner.name }}</td>
+                            {% if partner.isActive %}
+                                <td>Actif</td>
+                            {% else %}
+                                <td>Inactif</td>
+                            {% endif %}
+                            <td>
+                                <button type="button" class="btn btn-outline-primary">Voir</button>
+                                <button type="button" class="btn btn-outline-danger">Supprimer</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="button" class="btn btn-outline-success btn-lg" title="Ajouter un partenaire">Ajouter un partenaire</button>
+        </div>
+    </section><!-- /.module.projects -->
+
 {% endblock %}
