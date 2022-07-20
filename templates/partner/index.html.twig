@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PartnerController!{% endblock %}
+{% block title %}Partenaires{% endblock %}
 
 {% block body %}
     <header class="main-header">
@@ -74,7 +74,7 @@
                                 <td>Inactif</td>
                             {% endif %}
                             <td>
-                                <button type="button" class="btn btn-outline-primary">Voir</button>
+                                <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
                                 <button type="button" class="btn btn-outline-danger">Supprimer</button>
                             </td>
                         </tr>
@@ -83,7 +83,7 @@
                 </table>
             </div>
 
-            <button type="button" class="btn btn-outline-success btn-lg" title="Ajouter un partenaire">Ajouter un partenaire</button>
+            <a class="btn btn-outline-success btn-lg" href="{{ path('new_partner') }}">Ajouter un partenaire</a>
         </div>
     </section><!-- /.module.projects -->
 

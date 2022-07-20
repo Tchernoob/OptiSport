@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+ <h3>{{ partner.name }}</h3>
+
+ <p> {{ partner.description }}</p>
+ {% if structures is not empty  %}
+    <h4>Structures</h4>
+   <ul>
+    {% for structure in partner.structures  %}
+    <li> {{ structure.name }}</li>
+    {% endfor %}
+   </ul>
+ {% endif %}
+    <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une structure</a>
+{% endblock %}
