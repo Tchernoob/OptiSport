@@ -83,15 +83,19 @@
                             <li class="nav-item"><a href="{{ asset('partner') }}" class="nav-link active">Partenaires</a></li>
                             <li class="nav-item"><a href="{{ asset('template') }}" class="nav-link">Packages</a></li>
                             <li class="nav-item"><a href="{{  asset('mods') }}" class="nav-link">Modules</a></li>
+                        {% if app.user %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Jim Pichon
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="#">Mon Compte</a></li>
-                                    <li><a class="dropdown-item" href="#">Se déconnecter</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                                 </ul>
                             </li>
+                        {%  else %}
+                            <li class="nav-item"><a href="{{ path('app_login')}}" class="nav-link">Connexion</a></li>
+                        {% endif %}
                         </ul>
                     </header>
         </div>
