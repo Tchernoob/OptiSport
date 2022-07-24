@@ -77,8 +77,6 @@ class PartnerController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/newStructure/{id}', name: 'new_structure')]
     public function newStructure(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Partner $partner): Response
     {

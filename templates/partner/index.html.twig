@@ -75,7 +75,11 @@
                             {% endif %}
                             <td>
                                 <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
-                                <button type="button" class="btn btn-outline-danger">Supprimer</button>
+                                {% if partner.isActive %}
+                                    <button type="button" class="btn btn-outline-danger">Désactiver</button>
+                                {% else %}
+                                    <button type="button" class="btn btn-outline-success">Activé</button>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
