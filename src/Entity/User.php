@@ -38,7 +38,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Partner $partner = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Structure $structure = null;
 
     public function getId(): ?int
     {
@@ -142,6 +146,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($partner === null && $this->partner !== null) {
+            $this->partner->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($partner !== null && $partner->getUser() !== $this) {
+            $partner->setUser($this);
+        }
+
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getStructure(): ?Structure
+    {
+        return $this->structure;
+    }
+
+    public function setStructure(?Structure $structure): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($structure === null && $this->structure !== null) {
+            $this->structure->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($structure !== null && $structure->getUser() !== $this) {
+            $structure->setUser($this);
+        }
+
+        $this->structure = $structure;
 
         return $this;
     }
