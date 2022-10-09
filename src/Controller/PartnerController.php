@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Partner;
 use App\Entity\Structure;
+use App\Entity\User;
 use App\Form\PartnerType;
 use App\Form\StructureType;
+use App\Form\UserType;
 use App\Repository\PartnerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +41,7 @@ class PartnerController extends AbstractController
         $form = $this->createForm(PartnerType::class, $partner);
 
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
+
         {
             $file = $form['logo']->getData();
             $extension = $file->guessExtension();
@@ -57,7 +60,14 @@ class PartnerController extends AbstractController
 
             //pour l'envoi dans la bdd
             $manager->persist($partner);
+
+//            $form
+//                ->getData()->getUser()->getPassword()->setData('1234')
+//                ->getData()->getUser()->getCreatedAt()->setData(new \DateTime())
+//                ->getData()->getUser()->getPartner()->setData($partner);
+
             $manager->flush();
+
 
             return $this->redirectToRoute('app_partner_show', ['id' => $partner->getId()]);
         }

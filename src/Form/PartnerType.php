@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Mods;
 use App\Entity\Partner;
 use App\Entity\Template;
+use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,7 +24,6 @@ class PartnerType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('is_active', CheckboxType::class)
-            ->add('email', EmailType::class)
             ->add('summary', TextType::class)
             ->add('description', TextType::class)
             ->add('url', TextType::class)
@@ -52,6 +52,9 @@ class PartnerType extends AbstractType
                 'multiple' =>true,
                 'required' =>false,
             ])
+            ->add('user', UserType::class,
+                ['label' => false])
+
             ->add('Ajouter', SubmitType::class)
         ;
     }
