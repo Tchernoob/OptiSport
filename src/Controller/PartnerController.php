@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Partner;
 use App\Entity\Structure;
+use App\Entity\Mods;
 use App\Entity\User;
 use App\Form\PartnerType;
 use App\Form\StructureType;
@@ -83,7 +84,8 @@ class PartnerController extends AbstractController
     {
         return $this->render('partner/show.html.twig', [
             'partner' => $partner,
-            'structures' => $partner->getStructures()
+            'structures' => $partner->getStructures(),
+            'mods' => $partner->getMods(),
         ]);
     }
 

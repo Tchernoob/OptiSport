@@ -47,13 +47,13 @@ class PartnerType extends AbstractType
                 'multiple' =>false,
                 'required' =>false,
             ])
-            ->add('modules', EntityType::class, [
+            ->add('mods', EntityType::class, [
                 'class' => Mods::class,
                 'multiple' =>true,
                 'required' =>false,
             ])
-            ->add('user', UserType::class,
-                ['label' => false])
+            // ->add('user', UserType::class,
+            //     ['label' => false])
 
             ->add('Ajouter', SubmitType::class)
         ;

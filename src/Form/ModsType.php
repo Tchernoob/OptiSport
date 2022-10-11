@@ -24,12 +24,6 @@ class ModsType extends AbstractType
                 'required' =>false,
                 'mapped' => false
             ])
-            ->add('clients', EntityType::class, [
-                'class' => ClientMods::class,
-                'multiple' =>true,
-                'required' =>false,
-                'mapped' => false
-            ])
             ->add('Ajouter', SubmitType::class)
         ;
     }

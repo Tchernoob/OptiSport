@@ -19,14 +19,21 @@ class Mods
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column]
+    private ?bool $is_active = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\ManyToMany(targetEntity: TemplateMods::class, inversedBy: 'mods')]
     private Collection $template;
 
-    #[ORM\ManyToMany(targetEntity: ClientMods::class, inversedBy: 'mods')]
-    private Collection $clients;
+    #[ORM\ManyToMany(targetEntity: Partner::class, mappedBy: 'mods')]
+    private $partners;
+
+    #[ORM\ManyToMany(targetEntity: Structure::class, mappedBy: 'mods')]
+    private $structures;
+
 
     public function __construct()
     {
@@ -88,25 +95,55 @@ class Mods
     }
 
     /**
-     * @return Collection<int, ClientMods>
+     * @return Collection<int, Partner>
      */
-    public function getClients(): Collection
+    public function getPartners(): ?Collection
     {
-        return $this->clients;
+        return $this->partners;
     }
 
-    public function addClient(ClientMods $client): self
+    public function addPartner(Partner $partner): self
     {
-        if (!$this->clients->contains($client)) {
-            $this->clients[] = $client;
+        if (!$this->partners->contains($partner)) {
+            $this->partners[] = $partner;
+            $partner->addMods($this);
         }
 
         return $this;
     }
 
-    public function removeClient(ClientMods $client): self
+    public function removePartner(Partner $partner): self
     {
-        $this->clients->removeElement($client);
+        if ($this->partner->removeElement($partner)) {
+            $partner->removeMods($this);
+        }
+
+        return $this;
+    }
+
+        /**
+     * @return Collection<int, Structure>
+     */
+    public function getStructures(): Collection
+    {
+        return $this->structures;
+    }
+
+    public function addStructure(Structure $structure): self
+    {
+        if (!$this->structures->contains($structure)) {
+            $this->structures[] = $structure;
+            $structure->addMod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStructure(Structure $structure): self
+    {
+        if ($this->structure->removeElement($structure)) {
+            $structure->removeMod($this);
+        }
 
         return $this;
     }
@@ -114,5 +151,5 @@ class Mods
     public function __toString(): string
     {
         return $this->name;
-    }
+    }    
 }

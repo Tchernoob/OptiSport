@@ -48,8 +48,8 @@ class Structure
     #[ORM\ManyToOne(inversedBy: 'structures')]
     private ?Template $template = null;
 
-    #[ORM\ManyToMany(targetEntity: ClientMods::class, inversedBy: 'structures')]
-    private Collection $modules;
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'structures')]
+    private $mods;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
@@ -59,7 +59,7 @@ class Structure
 
     public function __construct()
     {
-        $this->modules = new ArrayCollection();
+        $this->mods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,26 +187,26 @@ class Structure
         return $this;
     }
 
-    /**
-     * @return Collection<int, ClientMods>
+     /**
+     * @return Collection<int, Mods>
      */
-    public function getModules(): Collection
+    public function getMods(): Collection
     {
-        return $this->modules;
+        return $this->mods;
     }
 
-    public function addModule(ClientMods $module): self
+    public function addMod(Mods $mod): self
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
+        if (!$this->mods->contains($mod)) {
+            $this->mods[] = $mod;
         }
 
         return $this;
     }
 
-    public function removeModule(ClientMods $module): self
+    public function removeMod(Mods $mod): self
     {
-        $this->modules->removeElement($module);
+        $this->getMods->removeElement($mod);
 
         return $this;
     }

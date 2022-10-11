@@ -7,7 +7,7 @@
         <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#people-circle"></use></svg>
         <h1>Partenaires</h1>
     </header>
-
+    
     <section class="module partner">
         <div class="module-content">
             <nav class="list-filters">
@@ -61,10 +61,12 @@
                         <th scope="col">Partenaires</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
+                        <th scope="col">Modules</th>
                     </tr>
                     </thead>
                     <tbody class="table-group-divider">
                     {% for partner in partners  %}
+                        {{ dump(partner) }}
                         <tr>
                             <td scope="row"> {{ partner.id }}</td>
                             <td> {{ partner.name }}</td>
@@ -81,11 +83,18 @@
                                     <button type="button" class="btn btn-outline-success">Activé</button>
                                 {% endif %}
                             </td>
+                            <td>             
+                                <ul>
+                                 {% for mod in partner.mods %}
+                                    <li> {{ mod.name}} </li>
+                                 {% endfor %}
+                                </ul>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
+
 
             <a class="btn btn-outline-success btn-lg" href="{{ path('new_partner') }}">Ajouter un partenaire</a>
         </div>

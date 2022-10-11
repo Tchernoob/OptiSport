@@ -43,8 +43,8 @@ class Partner
     #[ORM\ManyToOne(inversedBy: 'partners')]
     private ?Template $template = null;
 
-    #[ORM\ManyToMany(targetEntity: ClientMods::class, inversedBy: 'partners')]
-    private Collection $modules;
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'partners')]
+    private $mods;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
@@ -55,7 +55,7 @@ class Partner
     public function __construct()
     {
         $this->structures = new ArrayCollection();
-        $this->modules = new ArrayCollection();
+        $this->mods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,25 +190,25 @@ class Partner
     }
 
     /**
-     * @return Collection<int, ClientMods>
+     * @return Collection<int, Mods>
      */
-    public function getModules(): Collection
+    public function getMods(): ?Collection
     {
-        return $this->modules;
+        return $this->mods;
     }
 
-    public function addModule(ClientMods $module): self
+    public function addMods(Mods $mods): self
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
+        if ($this->mods && !$this->mods->contains($mods)) {
+            $this->mod[] = $mods;
         }
 
         return $this;
     }
 
-    public function removeModule(ClientMods $module): self
+    public function removeMods(Mods $mods): self
     {
-        $this->modules->removeElement($module);
+        $this->getMods->removeElement($mods);
 
         return $this;
     }
@@ -236,4 +236,9 @@ class Partner
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }   
 }
