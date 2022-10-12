@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+ {% block javascripts %}
+        {{ encore_entry_script_tags('activateModules') }}
+		{{ parent() }}
+ {% endblock %}
+
+{% block title %}{{partner.name}}{% endblock %}
 
 {% block body %}
  <h3>{{ partner.name }}</h3>
@@ -18,14 +23,11 @@
     {% for module in mods  %}
     <li> {{ module }}</li>
       {% if module in partner.mods %}
-        <a href="{{ path('activate_mod', {id: partner.id, mod: module.id})}}">Désactiver</a>
+        <a href="{{ path('deactivate_mod', {id: partner.id, mod: module.id})}}">Désactiver</a>
          {% else %}
         <a href="{{ path('activate_mod', {id: partner.id, mod: module.id})}}">Activer</a>
       {% endif %}
         
-      
-    
- 
     {# <button data-id="{{module.id}}" class="activationModule">Désactiver</button> #}
   
     {% endfor %}
