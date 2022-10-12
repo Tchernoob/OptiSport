@@ -165,34 +165,37 @@ class PartnerController extends AbstractController
 
     // }
 
+
     #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
     public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
     {
-        $focusedMod = $modRepo->find($mod); 
 
         $exists = false; 
 
+        //si le module focus est présent dans la liste des modules du partner on flag true
         foreach($partner->getMods() as $module)
         {
-            if($module === $focusedMod)
+            if($module === $mod)
             {
                 $exists = true; 
             }
         }
-
+        //si true on le supprime de la liste sinon on l'ajoute 
         if($exists) 
         {
-            $partner->removeMods($focusedMod);
+            $partner->removeMods($mod);
         }
         else 
         {
-            $partner->addMods($focusedMod);
+            $partner->addMods($mod);
         }
 
       
         $em->persist($partner); 
         $em->flush(); 
 
+        //on créé un tableau avec un id et nom de chaque module dans le partner après ajout ou suppression du dessus 
+        //on renvoie ce tableau au client js comme réponse lors du clic sur un bouton
         $partnerMods = []; 
         foreach($partner->getMods() as $partnerMod) 
         {
