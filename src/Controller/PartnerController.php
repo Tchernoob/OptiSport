@@ -130,38 +130,76 @@ class PartnerController extends AbstractController
         ]);
     }
 
+    // #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
+    // public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
+    // {
+
+    //     $partner->addMods($mod);
+       
+    //     $em->persist($partner); 
+    //     $em->flush(); 
+
+    //     return $this->render('partner/show.html.twig', [
+    //         'partner' => $partner,
+    //         'id' => $partner->getId(), 
+    //         'structures' => $partner->getStructures(),
+    //         'mods' => $modRepo->findBy(['is_active' => true]), 
+    //     ]);
+    // }
+
+    // #[Route('/mod/{mod}/deactivate/{id}', name: 'deactivate_mod', methods: ['GET'])]
+    // public function deactivateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
+    // {
+    
+    //     $partner->removeMods($mod);
+
+    //     $em->persist($partner); 
+    //     $em->flush(); 
+
+    //     return $this->render('partner/show.html.twig', [
+    //         'partner' => $partner,
+    //         'id' => $partner->getId(), 
+    //         'structures' => $partner->getStructures(),
+    //         'mods' => $modRepo->findBy(['is_active' => true]), 
+    //     ]);
+
+    // }
+
     #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
     public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
     {
+        $focusedMod = $modRepo->find($mod); 
 
-        $partner->addMods($mod);
-       
+        $exists = false; 
+
+        foreach($partner->getMods() as $module)
+        {
+            if($module === $focusedMod)
+            {
+                $exists = true; 
+            }
+        }
+
+        if($exists) 
+        {
+            $partner->removeMods($focusedMod);
+        }
+        else 
+        {
+            $partner->addMods($focusedMod);
+        }
+
+      
         $em->persist($partner); 
         $em->flush(); 
 
-        return $this->render('partner/show.html.twig', [
-            'partner' => $partner,
-            'id' => $partner->getId(), 
-            'structures' => $partner->getStructures(),
-            'mods' => $modRepo->findBy(['is_active' => true]), 
-        ]);
-    }
+        $partnerMods = []; 
+        foreach($partner->getMods() as $partnerMod) 
+        {
+            $partnerMods[] = ['id'=>$partnerMod->getId(), 'name'=>$partnerMod->getName()]; ; 
+        }
 
-    #[Route('/mod/{mod}/deactivate/{id}', name: 'deactivate_mod', methods: ['GET'])]
-    public function deactivateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
-    {
-    
-        $partner->removeMods($mod);
 
-        $em->persist($partner); 
-        $em->flush(); 
-
-        return $this->render('partner/show.html.twig', [
-            'partner' => $partner,
-            'id' => $partner->getId(), 
-            'structures' => $partner->getStructures(),
-            'mods' => $modRepo->findBy(['is_active' => true]), 
-        ]);
-
+        return new JsonResponse($partnerMods); 
     }
 }

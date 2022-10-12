@@ -23,12 +23,12 @@
     {% for module in mods  %}
     <li> {{ module }}</li>
       {% if module in partner.mods %}
-        <a href="{{ path('deactivate_mod', {id: partner.id, mod: module.id})}}">Désactiver</a>
+         <button data-mod="{{module.id}}" data-partner="{{partner.id}}" class="activationModule deactivate">Désactiver</button>
          {% else %}
-        <a href="{{ path('activate_mod', {id: partner.id, mod: module.id})}}">Activer</a>
+        <button data-mod="{{module.id}}" data-partner="{{partner.id}}" class="activationModule activate">Activer</button>
       {% endif %}
         
-    {# <button data-id="{{module.id}}" class="activationModule">Désactiver</button> #}
+   
   
     {% endfor %}
    </ul>
