@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\PartnerType;
 use App\Form\StructureType;
 use App\Form\UserType;
+use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,12 +81,12 @@ class PartnerController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_partner_show', methods: ['GET'])]
-    public function show(Partner $partner): Response
+    public function show(Partner $partner, ModsRepository $modRepo): Response
     {
         return $this->render('partner/show.html.twig', [
             'partner' => $partner,
             'structures' => $partner->getStructures(),
-            'mods' => $partner->getMods(),
+            'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
     }
 
@@ -125,6 +126,30 @@ class PartnerController extends AbstractController
 
         return $this->renderForm('structure/new.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/api/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
+    public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
+    {
+        foreach($partner->getMods() as $module)
+        {
+            if($module === $mod) {
+                $partner->removeMods($mod); 
+            }
+            else {
+                $partner->addMods($mod); 
+            }
+        }
+        
+        $em->persist($partner); 
+        $em->flush(); 
+
+        return $this->render('partner/show.html.twig', [
+            'partner' => $partner,
+            'id' => $partner->getId(), 
+            'structures' => $partner->getStructures(),
+            'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
     }
 }

@@ -39,6 +39,17 @@ class PartnerRepository extends ServiceEntityRepository
         }
     }
 
+    public function findMod($mod)
+    {
+        $qb = $this->createQueryBuilder('p')
+        ->select('p')
+        ->innerJoin('p.mods', 'm')
+            ->where('m.id = :mod')
+            ->setParameter('mod', $mod);
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Partner[] Returns an array of Partner objects
 //     */

@@ -148,6 +148,18 @@ class Mods
         return $this;
     }
 
+    public function isIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): self
+    {
+        $this->is_active = $is_active;
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return $this->name;

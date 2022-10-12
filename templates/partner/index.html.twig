@@ -66,7 +66,9 @@
                     </thead>
                     <tbody class="table-group-divider">
                     {% for partner in partners  %}
-                        {{ dump(partner) }}
+                        {# {% for mod in partner.mods %}
+                                {{ dump(mod) }}
+                        {% endfor %} #}
                         <tr>
                             <td scope="row"> {{ partner.id }}</td>
                             <td> {{ partner.name }}</td>

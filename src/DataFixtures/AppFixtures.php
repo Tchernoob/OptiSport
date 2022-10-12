@@ -46,7 +46,6 @@ class AppFixtures extends Fixture
             //name, is_active, email, summary, description, url, logo
             ['La cerise Verte',
                 1,
-                'cherry.green@cerise.com',
                 'Sport - Passion - Cerise',
                 'L’enseigne la Cerise Verte est une licence de marque française de clubs de fitness dont la société mère, 
                  OB Réseaux a son siège social à Rennes (Ille-et-Vilaine, Bretagne).
@@ -60,7 +59,6 @@ class AppFixtures extends Fixture
 
             ['Le Melon Pourpre',
                 0,
-                'melon.pourple@melon.com',
                 'Sport - Passion - Melon',
                 'L’enseigne le Melon Pourpre est une licence de marque française de clubs de fitness dont la société mère, 
                  OB Réseaux a son siège social à Rennes (Ille-et-Vilaine, Bretagne).
@@ -74,7 +72,6 @@ class AppFixtures extends Fixture
 
             ['Tomate',
                 1,
-                'tomate@ketchup.com',
                 'Sport - Passion - Tomate',
                 'L’enseigne la Tomate  est une licence de marque française de clubs de fitness dont la société mère, 
                  OB Réseaux a son siège social à Rennes (Ille-et-Vilaine, Bretagne).
@@ -89,7 +86,6 @@ class AppFixtures extends Fixture
 
             ['Carotte',
                 0,
-                'carot@carotte.com',
                 'Sport - Passion - Carotte',
                 'L’enseigne la Carotte  est une licence de marque française de clubs de fitness dont la société mère, 
                  OB Réseaux a son siège social à Rennes (Ille-et-Vilaine, Bretagne).
@@ -103,7 +99,6 @@ class AppFixtures extends Fixture
 
             ['Patate',
                 1,
-                'potatoes@patate.com',
                 'Sport - Passion - Patate',
                 'L’enseigne la Papate  est une licence de marque française de clubs de fitness dont la société mère, 
                  OB Réseaux a son siège social à Rennes (Ille-et-Vilaine, Bretagne).
@@ -122,11 +117,10 @@ class AppFixtures extends Fixture
             $prtner = new Partner();
             $prtner->setName($partner[0])
                     ->setIsActive($partner[1])
-                    ->setEmail($partner[2])
-                    ->setSummary($partner[3])
-                    ->setDescription($partner[4])
-                    ->setUrl($partner[5])
-                    ->setLogo($partner[6])
+                    ->setSummary($partner[2])
+                    ->setDescription($partner[3])
+                    ->setUrl($partner[4])
+                    ->setLogo($partner[5])
                     ->setCreatedAt(new \DateTime())
                     ->setUpdatedAt(new \DateTime());
 

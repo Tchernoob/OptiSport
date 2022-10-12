@@ -199,8 +199,8 @@ class Partner
 
     public function addMods(Mods $mods): self
     {
-        if ($this->mods && !$this->mods->contains($mods)) {
-            $this->mod[] = $mods;
+        if (!$this->mods->contains($mods)) {
+            $this->mods[] = $mods;
         }
 
         return $this;
@@ -208,7 +208,7 @@ class Partner
 
     public function removeMods(Mods $mods): self
     {
-        $this->getMods->removeElement($mods);
+        $this->getMods()->removeElement($mods);
 
         return $this;
     }
