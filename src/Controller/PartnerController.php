@@ -163,11 +163,5 @@ class PartnerController extends AbstractController
             'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
 
-        return $this->render('partner/show.html.twig', [
-            'partner' => $partner,
-            'id' => $partner->getId(), 
-            'structures' => $partner->getStructures(),
-            'mods' => $modRepo->findBy(['is_active' => true]), 
-        ]);
     }
 }
