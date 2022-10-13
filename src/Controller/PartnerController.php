@@ -64,6 +64,7 @@ class PartnerController extends AbstractController
             //pour l'envoi dans la bdd
             $manager->persist($partner);
 
+
 //            $form
 //                ->getData()->getUser()->getPassword()->setData('1234')
 //                ->getData()->getUser()->getCreatedAt()->setData(new \DateTime())
@@ -122,7 +123,7 @@ class PartnerController extends AbstractController
             $manager->persist($structure);
             $manager->flush();
 
-            return $this->redirectToRoute('app_partner_show', ['id' => $partner->getId()]);
+            return $this->redirectToRoute('app_structure_show', ['id' => $structure->getId()]);
         }
 
         return $this->renderForm('structure/new.html.twig', [
@@ -167,11 +168,11 @@ class PartnerController extends AbstractController
 
 
     #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
-    public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
+    public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : JsonResponse
     {
 
         $exists = false; 
-
+      
         //si le module focus est présent dans la liste des modules du partner on flag true
         foreach($partner->getMods() as $module)
         {
@@ -184,10 +185,16 @@ class PartnerController extends AbstractController
         if($exists) 
         {
             $partner->removeMods($mod);
+            foreach($partner->getStructures() as $struct){
+                $struct->removeMods($mod);
+            }
         }
         else 
         {
             $partner->addMods($mod);
+            foreach($partner->getStructures() as $struct){
+                $struct->addMods($mod);
+            }
         }
 
       
@@ -204,5 +211,25 @@ class PartnerController extends AbstractController
 
 
         return new JsonResponse($partnerMods); 
+    }
+
+    #[Route('/activate/{id}', name: 'activate_partner', methods: ['GET'])]
+    public function activatePartner(EntityManagerInterface $em, Partner $partner) : Response
+    {
+
+        if($partner->isIsActive())
+        {
+            $partner->setIsActive(false);
+        }
+        else 
+        {
+            $partner->setIsActive(true);
+        }
+
+        $em->persist($partner); 
+        $em->flush(); 
+
+        return new JsonResponse($partner->isIsActive());
+
     }
 }

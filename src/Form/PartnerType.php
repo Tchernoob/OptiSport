@@ -6,6 +6,8 @@ use App\Entity\Mods;
 use App\Entity\Partner;
 use App\Entity\Template;
 use App\Entity\User;
+use App\Form\EventListener\UserFormSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,6 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartnerType extends AbstractType
 {
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager; 
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -52,17 +60,19 @@ class PartnerType extends AbstractType
                 'multiple' =>true,
                 'required' =>false,
             ])
-            // ->add('user', UserType::class,
-            //     ['label' => false])
+            ->add('user', UserType::class,
+                ['label' => false])
 
             ->add('Ajouter', SubmitType::class)
         ;
+        // $builder->addEventSubscriber(new UserFormSubscriber($this->em));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Partner::class,
+            'allow_extra_fields' => true 
         ]);
     }
 }

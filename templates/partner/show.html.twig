@@ -16,6 +16,7 @@
    <ul>
     {% for structure in partner.structures  %}
     <li> {{ structure.name }}</li>
+    <a class="btn btn-outline-success btn-lg" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
     {% endfor %}
    </ul>   
  {% endif %}

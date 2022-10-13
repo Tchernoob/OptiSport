@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Structure;
 use App\Form\StructureType;
 use App\Repository\StructureRepository;
+use App\Repository\ModsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +24,16 @@ class StructureController extends AbstractController
             'structures' => $structures,
             'activeStructures' => $activeStructures,
             'notActiveStructures' => $notActiveStructures
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'app_structure_show', methods: ['GET'])]
+    public function show(Structure $structure, ModsRepository $modRepo): Response
+    {
+        return $this->render('structure/show.html.twig', [
+            'structure' => $structure,
+            'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
     }
 }

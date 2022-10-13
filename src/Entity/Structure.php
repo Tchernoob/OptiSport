@@ -195,7 +195,7 @@ class Structure
         return $this->mods;
     }
 
-    public function addMod(Mods $mod): self
+    public function addMods(Mods $mod): self
     {
         if (!$this->mods->contains($mod)) {
             $this->mods[] = $mod;
@@ -204,9 +204,9 @@ class Structure
         return $this;
     }
 
-    public function removeMod(Mods $mod): self
+    public function removeMods(Mods $mod): self
     {
-        $this->getMods->removeElement($mod);
+        $this->getMods()->removeElement($mod);
 
         return $this;
     }

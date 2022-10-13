@@ -133,7 +133,7 @@ class Mods
     {
         if (!$this->structures->contains($structure)) {
             $this->structures[] = $structure;
-            $structure->addMod($this);
+            $structure->addMods($this);
         }
 
         return $this;
@@ -142,7 +142,7 @@ class Mods
     public function removeStructure(Structure $structure): self
     {
         if ($this->structure->removeElement($structure)) {
-            $structure->removeMod($this);
+            $structure->removeMods($this);
         }
 
         return $this;

@@ -25,7 +25,6 @@ class StructureType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('is_active', CheckboxType::class)
-            ->add('email', EmailType::class)
             ->add('summary', TextType::class)
             ->add('description', TextareaType::class)
             ->add('url', TextType::class)
@@ -53,7 +52,7 @@ class StructureType extends AbstractType
                 'multiple'=>false,
                 'required'=>false,
             ])
-            ->add('modules', EntityType::class,  [
+            ->add('mods', EntityType::class,  [
                 'class' => Mods::class,
                 'multiple'=>true,
                 'required'=>false,
