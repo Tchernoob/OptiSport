@@ -27,19 +27,16 @@ class UserFormSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::PRE_SET_DATA=> 'preSubmitData'
+            FormEvents::PRE_SET_DATA=> 'preSetData'
         ];
     }
 
-    public function preSubmitData(FormEvent $event) : void
+    public function preSetData(FormEvent $event) : void
     {
-        //dd($event->getData()->getUser()); 
-        $user = $event->getData(); 
-      //  dd($user); 
+        $user = $event->getData();
+        $user->setPassword(bin2hex(random_bytes(6))); 
         $user->setCreatedAt(new \DateTime()); 
-        $this->em->persist($user); 
-        
-    //    $event->setData($user); 
+        $event->setData($user); 
     }
 
 

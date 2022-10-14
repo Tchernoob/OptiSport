@@ -31,15 +31,9 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('first_name', TextType::class)
             ->add('last_name', TextType::class)
-            ->add('password', PasswordType::class)
-            ->add('created_at', DateTimeType::class, [
-                'data' => new \DateTime()
-            ]);
         ;
 
-        // $builder
-        // ->get('created_at')
-        // ->addModelTransformer(new DateTimeToStringTransformer());
+        $builder->addEventSubscriber(new UserFormSubscriber($this->em));
         
     }
 
@@ -47,7 +41,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'allow_extra_fields' => true 
+            'allow_extra_fields' => true,
         ]);
     }
 }

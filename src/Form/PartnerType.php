@@ -65,7 +65,6 @@ class PartnerType extends AbstractType
 
             ->add('Ajouter', SubmitType::class)
         ;
-        // $builder->addEventSubscriber(new UserFormSubscriber($this->em));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

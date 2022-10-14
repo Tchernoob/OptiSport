@@ -40,7 +40,8 @@ class PartnerController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger) : Response
     {
         $partner = new Partner();
-
+        $user = new User(); 
+        $user->setPartner($partner); 
         $form = $this->createForm(PartnerType::class, $partner);
 
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
@@ -63,13 +64,7 @@ class PartnerController extends AbstractController
 
             //pour l'envoi dans la bdd
             $manager->persist($partner);
-
-
-//            $form
-//                ->getData()->getUser()->getPassword()->setData('1234')
-//                ->getData()->getUser()->getCreatedAt()->setData(new \DateTime())
-//                ->getData()->getUser()->getPartner()->setData($partner);
-
+            $manager->persist($user);
             $manager->flush();
 
 
