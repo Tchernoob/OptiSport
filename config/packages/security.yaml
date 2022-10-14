@@ -29,17 +29,17 @@ security:
             # switch_user: true
 
     role_hierarchy:
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
         ROLE_ADMIN: [ROLE_MANAGER]
-        ROLE_MANAGER: [ROLE_USER_PARTNER]
-        ROLE_USER_PARTNER: [ROLE_USER_STRUCTURE]
+        ROLE_MANAGER: [ROLE_USER_STRUCTURE]
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     
     access_control:
          - { path: ^/partner, roles: ROLE_ADMIN }
+         - { path: ^/partner/, roles: ROLE_MANAGER }
+         - { path: ^/structure, roles: ROLE_USER_STRUCTURE }
          - { path: ^/template, roles: ROLE_ADMIN }
-         - { path: ^/mods, roles: ROLE_MANAGER }
+         - { path: ^/mods, roles: ROLE_ADMIN }
          - { path: ^/user, roles: ROLE_ADMIN }
 
 when@test:
