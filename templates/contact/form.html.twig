@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block search %}{% endblock %} {# retrait barre de recherche #}
+
+{% block body %}
+	<div class="wrapper">
+
+		<h2>Nous contacter</h2>
+
+			{% for message in app.flashes('success') %}
+				<div class="alert-success">
+					<p>{{ message }}</p> 
+				</div>
+			{% endfor %}
+
+			{{form_start(form)}}
+				{{ form_row(form.name) }}
+				{{ form_row(form.email) }}
+				{{ form_row(form.subject) }}
+				{{ form_row(form.message) }}
+
+			<button class="btn app-button button-yellow">{{ button_label|default('Envoyer') }}</button>
+			{{ form_end(form) }}
+
+		</div>
+	</div>
+{% endblock %}
+

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Mods;
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\Partner;
 use App\Entity\Structure;
 use App\Form\PartnerType;
@@ -12,11 +11,13 @@ use App\Form\StructureType;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/partner')]
@@ -37,7 +38,7 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/new', name: 'new_partner')]
-    public function new(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger) : Response
+    public function new(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, MailerInterface $mailer) : Response
     {
         $partner = new Partner();
         $user = new User(); 
@@ -45,8 +46,9 @@ class PartnerController extends AbstractController
         $form = $this->createForm(PartnerType::class, $partner);
 
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
-
         {
+            $formData = $form->getData(); 
+
             $file = $form['logo']->getData();
             $extension = $file->guessExtension();
             if(!$extension)
@@ -66,6 +68,14 @@ class PartnerController extends AbstractController
             $manager->persist($partner);
             $manager->persist($user);
             $manager->flush();
+
+            $message = (new Email())
+                ->from('test@optisport.com')
+                ->to($formData->getUser()->getEmail())
+                ->subject('Bienvenue chew OptiSport !')
+                ->text('http://127.0.0.1:8000/user/create-password/'.$formData->getUser()->getPassword());
+            $mailer->send($message);
+
 
 
             return $this->redirectToRoute('app_partner_show', ['id' => $partner->getId()]);
@@ -126,44 +136,9 @@ class PartnerController extends AbstractController
         ]);
     }
 
-    // #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
-    // public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
-    // {
-
-    //     $partner->addMods($mod);
-       
-    //     $em->persist($partner); 
-    //     $em->flush(); 
-
-    //     return $this->render('partner/show.html.twig', [
-    //         'partner' => $partner,
-    //         'id' => $partner->getId(), 
-    //         'structures' => $partner->getStructures(),
-    //         'mods' => $modRepo->findBy(['is_active' => true]), 
-    //     ]);
-    // }
-
-    // #[Route('/mod/{mod}/deactivate/{id}', name: 'deactivate_mod', methods: ['GET'])]
-    // public function deactivateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : Response
-    // {
-    
-    //     $partner->removeMods($mod);
-
-    //     $em->persist($partner); 
-    //     $em->flush(); 
-
-    //     return $this->render('partner/show.html.twig', [
-    //         'partner' => $partner,
-    //         'id' => $partner->getId(), 
-    //         'structures' => $partner->getStructures(),
-    //         'mods' => $modRepo->findBy(['is_active' => true]), 
-    //     ]);
-
-    // }
-
 
     #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
-    public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod, ModsRepository $modRepo) : JsonResponse
+    public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod) : JsonResponse
     {
 
         $exists = false; 
