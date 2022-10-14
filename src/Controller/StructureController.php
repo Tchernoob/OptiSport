@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Structure;
-use App\Form\StructureType;
 use App\Repository\StructureRepository;
 use App\Repository\ModsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/structure')]
 class StructureController extends AbstractController
