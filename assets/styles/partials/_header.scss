@@ -1,0 +1,102 @@
+/* header */
+
+// .logo {
+//     font-size: 3rem;
+//     color: $white;
+// }
+.text-logo-hdr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    padding: 1rem;
+}
+
+.text-logo-hdr h2 {
+    color: $green;
+}
+
+.text-logo-hdr a {
+    text-decoration:none; 
+    -webkit-transition: color 2s ease;
+    -moz-transition: color 2s ease;
+    -o-transition: color 2s ease;
+    transition: color 2s ease;
+}
+
+.text-logo-hdr a:hover {
+    cursor:pointer; 
+    color: $green;
+}
+
+.opt-logo {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}
+.img-logo {
+    height : 100px;
+}
+nav.container-nav
+        {
+            font-size: 2rem;
+            margin: 0 auto;
+            padding: 4rem 0.5rem 2rem 0.5rem;
+            text-align: center;
+            color: $red;
+        }
+
+        nav.container-nav ul {
+            text-decoration: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav.container-nav li
+        {
+            display: inline;
+            text-decoration: none;
+            margin: 0rem 1rem;
+            padding: 1rem 1rem;
+            position: relative;
+            z-index: 0;
+            cursor: pointer;
+        }
+
+        nav.container-nav a {
+            color: inherit;
+        }
+
+        /* Top and Bottom borders go out */
+        nav.topBotomBordersOut a:before, nav.topBotomBordersOut a:after
+        {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            height: 2px;
+            background: $green;
+            content: "";
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        nav.topBotomBordersOut a:before
+        {
+            top: 0px;
+            transform: translateY(10px);
+        }
+
+        nav.topBotomBordersOut a:after
+        {
+            bottom: 0px;
+            transform: translateY(-10px);
+        }
+
+        nav.topBotomBordersOut a:hover:before, nav.topBotomBordersOut a:hover:after
+        {
+            opacity: 1;
+            transform: translateY(0px);
+        }

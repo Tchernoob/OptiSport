@@ -1,0 +1,24 @@
+/* variables Scss */
+
+$white: #CFCFCC;
+$beige: #C6C3B5;
+$gray: #3F4148;
+$black: #141414;
+$red: #A45445;
+$yellow: #D6EC09;
+$light-red: #D85346;
+$dark-blue: #2F484B;
+$green: #849D8C;
+$light-green: #6FB49B; 
+
+$breakpoints: (
+    xxs : 200px, 
+    xs: 376px, 
+    sm: 576px, 
+    md: 767px, 
+    lg: 1024px, 
+    xl: 1280px, 
+    xxl: 1600px
+);
+
+$scale:1rem; 

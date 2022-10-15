@@ -1,25 +1,15 @@
 @import '~bootstrap/scss/bootstrap';
 
-/* --- Theme Configuration --- */
-@import "../styles/setup-optisport/setup.scss";
+@import 'partials/home';
+@import 'partials/typography';
+@import 'partials/reset';
+@import 'partials/vars';
+@import 'partials/footer';
+@import 'partials/header';
+@import 'partials/base';
+
+
 html, body {
-  background-color: #bcbebf;
-}
-
-footer {
-  color: white;
-}
-
-footer > .container  {
-  text-align: center;
-}
-
-.main-header {
-  margin: 0 0 44px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.table-container {
-  margin-bottom: 22px;
+  background-color: $black;
+  color: $white;
 }
