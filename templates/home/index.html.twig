@@ -1,19 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Optisport{% endblock %}
 
 {% block body %}
     <section>
         <header class="home-hdr">
-            <h1>Espace de Gestion OpstiSport</h1>
+            <h1>Bienvenue dans votre Espace de Gestion OpstiSport</h1>
         </header>
+        <div class="home-hdr-sep"> 
+        </div>
+
+        <div class="home-hdr-img">
+            <div class="home-text">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Nisi voluptatibus reiciendis porro quibusdam sunt optio laudantium. 
+                    Quae, assumenda ut ea at error nostrum ex laborum minus, est quibusdam animi labore.
+                    Excepturi voluptate aspernatur nulla maiores nihil praesentium recusandae unde eius dolore. 
+                    Asperiores incidunt ab, 
+                    id delectus illum reiciendis nihil debitis deserunt expedita laudantium dignissimos voluptatum!
+                    Aspernatur vitae ipsam ducimus commodi.
+                    Voluptates consectetur ipsa ipsum voluptas, 
+                    alias unde vel impedit deserunt omnis totam veniam nesciunt a ex ab molestiae asperiores mollitia
+                    expedita quaerat quidem consequuntur! Recusandae alias fugiat fuga adipisci soluta!
+                </p>
+            </div>
+            <img 
+                class="home-img" 
+                src="{{asset('img/opti-home.png')}}"
+                alt="opti-image"
+            >
+            <div class="home-text">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Nisi voluptatibus reiciendis porro quibusdam sunt optio laudantium. 
+                    Quae, assumenda ut ea at error nostrum ex laborum minus, est quibusdam animi labore.
+                    Excepturi voluptate aspernatur nulla maiores nihil praesentium recusandae unde eius dolore. 
+                    Asperiores incidunt ab, 
+                    id delectus illum reiciendis nihil debitis deserunt expedita laudantium dignissimos voluptatum!
+                    Aspernatur vitae ipsam ducimus commodi.
+                    Voluptates consectetur ipsa ipsum voluptas, 
+                    alias unde vel impedit deserunt omnis totam veniam nesciunt a ex ab molestiae asperiores mollitia
+                    expedita quaerat quidem consequuntur! Recusandae alias fugiat fuga adipisci soluta!
+                </p>
+            </div>
+            <nav class="home-nav">
+                <a class="btn btn-outline-primary btn-large" href=""{{ path('app_partner') }}"">Gérer les partenaires</a>
+                <a class="btn btn-outline-primary btn-large" href=""{{ path('app_structure') }}"">Gérer les Structures</a>
+            </nav>
+        </div>
+
+        <div class="home-hdr-sep"> 
+        </div>
     </section>
-     <section class="module partner">
-        <header class="module-header">
-            <h2><span class="counter">3</span>Partenaires</h2>
-        </header>
+
+    <section class="module-partner">
+        <div class="module-title-hdr">
+            <header class="module-header">
+                <h2>Partenaires</h2>
+            </header>
+        </div>
 
         <div class="module-content">
+            <div "module-img">
+                <img 
+                    class="partner-img" 
+                    src="{{asset('img/opti-home.png')}}"
+                    alt="partner-image"
+                >
+            </div>
+
+            <div class="module-info">
+                <p class="module-text partner-text"> 
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Libero odit ab est aliquid sapiente. 
+                    Aut ipsum sunt id totam tempora, aspernatur est quisquam corrupti corporis, 
+                    neque quasi ex quis consectetur.
+                </p>
+                <p class="module-text"> {{ partnersNumber }} partenaire(s) au total </p>
+                <p class="module-text"> {{ activePartnersNumber}} partenaire(s) actif </p>
+
+                <div class="module-btn">
+                    <a class="btn btn-outline-primary btn-large" href="{{ path('app_partner') }}">Gérer les Partenaires</a>
+                </div>
+            </div>
+        <div>
+
+        {# <div class="module-content">
             <table class="table list partner">
                 <thead>
                     <tr>
@@ -56,6 +129,87 @@
                 </tbody>
             </table>
             <a href="partner.html" class="btn" data-icon="view" title="Voir tous les partenaires"><span class="text">Voir tous les partenaires</span></a>
+        </div> #}
+    </section>
+
+    <div class="home-hdr-sep"> 
+    </div>
+
+    <section class="module-partner">
+        <div class="module-title-hdr">
+            <header class="module-header">
+                <h2>Structures</h2>
+            </header>
         </div>
+
+        <div class="module-content structure">
+            <div "module-img">
+                <img 
+                    class="partner-img" 
+                    src="{{asset('img/opti-home.png')}}"
+                    alt="partner-image"
+                >
+            </div>
+
+            <div class="module-info">
+                <p class="module-text partner-text"> 
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Libero odit ab est aliquid sapiente. 
+                    Aut ipsum sunt id totam tempora, aspernatur est quisquam corrupti corporis, 
+                    neque quasi ex quis consectetur.
+                </p>
+                <p class="module-text"> {{ structures | length }} structure(s) au total </p>
+                <p class="module-text"> {{ activeStructuresNumber }} structure(s) active(s) </p>
+
+                <div class="module-btn">
+                    <a class="btn btn-outline-primary btn-large" href="{{ path('app_partner') }}">Gérer les Structures</a>
+                </div>
+            </div>
+        <div>
+
+        {# <div class="module-content">
+            <table class="table list partner">
+                <thead>
+                    <tr>
+                        <th class="id" data-field="id">ID</th>
+                        <th class="name" data-field="name">Nom Partenaire</th>
+                        <th class="partner-user" data-field="partner-user">Utilisateur lié</th>
+                        <th class="status" data-field="status">Status</th>
+                        <th class="package" data-field="package">Package utilisé</th>
+                        <th class="url" data-field="url">Liens Site web</th>
+                        <th class="actions" data-field="actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for partner in partners %}
+                        <tr>
+                            <td class="id keycol"><a href="partner.html" class="fill-cell"> {{ partner.id }}</a></td>
+                            <td class="name keycol"><a href="partner.html" class="fill-cell"> {{ partner.name }}</a></td>
+                            <td class="partner-user"> {{ partner.user }}</td>
+                            <td class="partner-status">
+                                {% if partner.isActive %}
+                                    Actif
+                                {% else %}
+                                    Inactif
+                                {% endif %}                   
+                            </td>
+                            <th>
+                                {% if partner.template %}
+                                    {{ partner.template }} 
+                                {% else %}
+                                    Aucun
+                                {% endif %}
+                            </th>
+                            <td><a href="{{partner.url}}">{{partner.url}}</a></td>
+                            <td class="actions">
+                                <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
+                                <a href="#" class="">Modifier</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="partner.html" class="btn" data-icon="view" title="Voir tous les partenaires"><span class="text">Voir tous les partenaires</span></a>
+        </div> #}
     </section>
 {% endblock %}

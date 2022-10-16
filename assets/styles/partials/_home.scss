@@ -1,7 +1,38 @@
 /* Home */
 
 .home-hdr {
+    margin: 4rem 0rem;
+}
+
+.home-hdr h1 {
+    font-size: 2rem;
+}
+
+.home-hdr-sep {
+    border-bottom: 1px solid;
+    color: $green;
+}
+
+.home-hdr-img {
+    margin: 2rem;
+}
+
+.home-img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.home-text {
+    margin-top: 2rem;
+}
+
+.home-text p {
+    text-align: center;
+}
+
+.home-nav {
     display: flex;
-    justify-content: center;
-    margin: 4rem;
+    justify-content: space-around;
+    margin: 3rem 3rem;
+    font-size: 1.5rem;
 }

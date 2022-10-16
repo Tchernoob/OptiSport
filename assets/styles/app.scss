@@ -1,12 +1,14 @@
 @import '~bootstrap/scss/bootstrap';
 
-@import 'partials/home';
-@import 'partials/typography';
 @import 'partials/reset';
 @import 'partials/vars';
-@import 'partials/footer';
-@import 'partials/header';
+@import 'partials/typography';
+@import 'partials/button';
 @import 'partials/base';
+@import 'partials/header';
+@import 'partials/home';
+@import 'partials/module';
+@import 'partials/footer';
 
 
 html, body {

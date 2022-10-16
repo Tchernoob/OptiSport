@@ -1,0 +1,17 @@
+/* button */
+
+.button {
+    background-color: $red;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: $white;
+    border-radius: 20%;
+}
+
+.button a:hover {
+    color: $white;
+}
+
+.btn-large {
+    padding: 1rem;
+}
