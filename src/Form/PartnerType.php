@@ -31,7 +31,11 @@ class PartnerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('is_active', CheckboxType::class)
+            ->add('is_active', CheckboxType::class, [
+                'label' => 'Partenaire Actif',
+                'data' => true,
+                'required' => false,
+            ])
             ->add('summary', TextType::class)
             ->add('description', TextType::class)
             ->add('url', TextType::class)

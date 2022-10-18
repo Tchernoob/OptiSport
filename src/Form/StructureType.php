@@ -26,7 +26,11 @@ class StructureType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('is_active', CheckboxType::class)
+            ->add('is_active', CheckboxType::class, [
+                'label' => 'Structure Active',
+                'data' => true,
+                'required' => false,
+            ])
             ->add('summary', TextType::class)
             ->add('description', TextareaType::class)
             ->add('url', TextType::class)
