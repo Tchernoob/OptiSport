@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Department;
+use App\Entity\User;
+use App\Form\EventListener\UserFormSubscriber;
 use App\Entity\Mods;
 use App\Entity\Structure;
 use App\Entity\Template;
@@ -57,6 +59,9 @@ class StructureType extends AbstractType
                 'multiple'=>true,
                 'required'=>false,
             ])
+            ->add('user', UserType::class,
+                ['label' => false])
+
             ->add('Ajouter', SubmitType::class)
         ;
     }
@@ -65,6 +70,7 @@ class StructureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Structure::class,
+            'allow_extra_fields' => true 
         ]);
     }
 }

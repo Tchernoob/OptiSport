@@ -63,6 +63,9 @@ class PartnerController extends AbstractController
                 ->setLogo($newName)
                 ->setCreatedAt(new \DateTime())
                 ->setUpdatedAt(new \DateTime());
+            
+            $user
+            ->setRoles(['ROLE_MANAGER']);
 
             //pour l'envoi dans la bdd
             $manager->persist($partner);
@@ -98,15 +101,18 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/newStructure/{id}', name: 'new_structure')]
-    public function newStructure(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Partner $partner): Response
+    public function newStructure(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Partner $partner, MailerInterface $mailer): Response
     {
 
         $structure = new Structure();
-
+        $user = new User();
+        $user->setStructure($structure);
         $form = $this->createForm(StructureType::class, $structure);
 
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
         {
+            $formData = $form->getData(); 
+
             $file = $form['logo']->getData();
             $extension = $file->guessExtension();
             if(!$extension)
@@ -123,10 +129,22 @@ class PartnerController extends AbstractController
                 ->setPartner($partner)
                 ->setCreatedAt(new \DateTime())
                 ->setUpdatedAt(new \DateTime());
+            
+            $user
+                ->setRoles(['ROLE_USER_STRUCTURE']);
+
 
             //pour l'envoi dans la bdd
             $manager->persist($structure);
+            $manager->persist($user);
             $manager->flush();
+
+            $message = (new Email())
+                ->from('test@optisport.com')
+                ->to($formData->getUser()->getEmail())
+                ->subject('Bienvenue chez Optisport !')
+                ->text('http://127.0.0.1:8000/user/create-password/'.$formData->getUser()->getPassword());
+            $mailer->send($message);
 
             return $this->redirectToRoute('app_structure_show', ['id' => $structure->getId()]);
         }

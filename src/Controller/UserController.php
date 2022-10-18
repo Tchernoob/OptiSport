@@ -31,16 +31,17 @@ class UserController extends AbstractController
             if($user->getPassword() === $token)
             {
                 $exists = true; 
+                $user;
             } 
         }
-
+        
         if($exists)
         {
             $form = $this->createForm(CreatePasswordType::class);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
+                
                 // Encode(hash) the plain password, and set it.
                 $encodedPassword = $userPasswordHasher->hashPassword(
                     $user,

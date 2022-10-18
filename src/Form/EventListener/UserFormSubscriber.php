@@ -27,11 +27,8 @@ class UserFormSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event) : void
     {
         $user = $event->getData();
-        $user->setRoles(['ROLE_MANAGER']);
         $user->setPassword(bin2hex(random_bytes(16))); 
         $user->setCreatedAt(new \DateTime()); 
         $event->setData($user); 
     }
-
-
 }
