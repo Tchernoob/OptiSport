@@ -33,5 +33,6 @@
   
     {% endfor %}
    </ul>
+    <a href="{{ path('edit_partner', {id: partner.id}) }}">Modifier le partenaire</a>
     <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une structure</a>
 {% endblock %}

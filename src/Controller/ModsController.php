@@ -47,4 +47,22 @@ class ModsController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/edit/{id}', name: 'edit_module', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Mods $module, EntityManagerInterface $em) : Response
+    {
+        $form = $this->createForm(ModsType::class, $module);
+        $form->handleRequest(($request));
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($module);
+            $em->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm('mods/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }    
 }
