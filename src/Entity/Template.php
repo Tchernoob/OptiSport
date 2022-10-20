@@ -28,8 +28,11 @@ class Template
     #[ORM\OneToMany(mappedBy: 'template', targetEntity: Structure::class)]
     private Collection $structures;
 
-    #[ORM\ManyToMany(targetEntity: TemplateMods::class, inversedBy: 'templates')]
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'templates')]
     private Collection $modules;
+
+    #[ORM\Column]
+    private ?bool $is_active = null;
 
     public function __construct()
     {
@@ -128,14 +131,14 @@ class Template
     }
 
     /**
-     * @return Collection<int, TemplateMods>
+     * @return Collection<int, Mods>
      */
     public function getModules(): Collection
     {
         return $this->modules;
     }
 
-    public function addModule(TemplateMods $module): self
+    public function addModule(Mods $module): self
     {
         if (!$this->modules->contains($module)) {
             $this->modules[] = $module;
@@ -144,7 +147,7 @@ class Template
         return $this;
     }
 
-    public function removeModule(TemplateMods $module): self
+    public function removeModule(Mods $module): self
     {
         $this->modules->removeElement($module);
 
@@ -154,5 +157,17 @@ class Template
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): self
+    {
+        $this->is_active = $is_active;
+
+        return $this;
     }
 }

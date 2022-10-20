@@ -25,7 +25,7 @@ class Mods
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\ManyToMany(targetEntity: TemplateMods::class, inversedBy: 'mods')]
+    #[ORM\ManyToMany(targetEntity: Template::class, mappedBy: 'mods')]
     private Collection $template;
 
     #[ORM\ManyToMany(targetEntity: Partner::class, mappedBy: 'mods')]
@@ -38,7 +38,6 @@ class Mods
     public function __construct()
     {
         $this->template = new ArrayCollection();
-        $this->clients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,14 +70,14 @@ class Mods
     }
 
     /**
-     * @return Collection<int, TemplateMods>
+     * @return Collection<int, Template>
      */
     public function getTemplate(): Collection
     {
         return $this->template;
     }
 
-    public function addTemplate(TemplateMods $template): self
+    public function addTemplate(Template $template): self
     {
         if (!$this->template->contains($template)) {
             $this->template[] = $template;
@@ -87,7 +86,7 @@ class Mods
         return $this;
     }
 
-    public function removeTemplate(TemplateMods $template): self
+    public function removeTemplate(Template $template): self
     {
         $this->template->removeElement($template);
 

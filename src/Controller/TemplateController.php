@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Template;
+use App\Entity\TemplateMods;
 use App\Form\TemplateType;
 use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,12 +40,29 @@ class TemplateController extends AbstractController
             $manager->persist($template);
             $manager->flush();
 
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->renderForm('template/new.html.twig', [
             'form' => $form,
         ]);
+    }
 
+    #[Route('/edit/{id}', name: 'edit_template', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Template $template, EntityManagerInterface $em) : Response
+    {
+        $form = $this->createForm(TemplateType::class, $template);
+        $form->handleRequest(($request));
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($template);
+            $em->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm('template/edit.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

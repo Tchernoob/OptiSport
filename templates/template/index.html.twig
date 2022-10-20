@@ -10,5 +10,8 @@
 
     <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
 
-
+    {% for template in templates %}
+        <p> {{ template.name }}</p>
+        <a href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
+    {% endfor %}
 {% endblock %}
