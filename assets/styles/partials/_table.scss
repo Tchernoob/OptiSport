@@ -1,1 +1,19 @@
 /* table */
+
+.table-container {
+    color: $white;
+    font-size: 1.2rem;
+}
+
+.table {
+    line-height: 3rem;
+}
+
+.table > thead {
+    line-height: 4rem;
+    color: $red;
+}
+
+.table > :not(:first-child) {
+    color: $green;
+}

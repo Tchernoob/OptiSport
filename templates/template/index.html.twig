@@ -3,15 +3,96 @@
 {% block title %}Hello TemplateController!{% endblock %}
 
 {% block body %}
-    <header class="main-header">
-        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#grid"></use></svg>
+    <header class="module-title-hdr entities">
         <h1>Packages</h1>
     </header>
 
-    <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
+    <div class="home-hdr-sep"> 
+    </div>
+    
+    <section class="module template">
+        <div class="module-content entity">
+            <nav class="list-filters">
+                <h3>Filtres</h3>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">ID</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label">Nom Package</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Statut Package</label>
+                            <select class="form-control selectpicker" title="">
+                                <option>actif</option>
+                                <option>Inactif</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {# <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
+                    </div> #}
+                    <div class="col-md-6 button-filter">
+                        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
+                    </div>
+                </div>
+            </nav>
 
-    {% for template in templates %}
-        <p> {{ template.name }}</p>
-        <a href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
-    {% endfor %}
+            <div class="home-hdr-sep"> 
+            </div>
+
+            <h3 class="count-entity">{{ pluralize(templates|length, 'Package OptiSport', 'Packages OptiSport') }}</h3>
+
+            <div class="container table-container">
+                <table class="table table-bordered table-container">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Template</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Nombre Modules</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    {% for template in templates  %}
+                        {# {% for mod in partner.mods %}
+                                {{ dump(mod) }}
+                        {% endfor %} #}
+                        <tr>
+                            <td scope="row"> {{ template.id }}</td>
+                            <td> {{ template.name }}</td>
+                            {% if template.isActive %}
+                                <td>Actif</td>
+                            {% else %}
+                                <td>Inactif</td>
+                            {% endif %}
+                            <td scope="row">3</td>
+                            <td>
+                                <a class="btn btn-outline-success" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
+                                <a class="btn btn-outline-danger" href="{{ path('edit_template', {id: template.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-sep "> 
+            </div>
+
+            <div class="add-entity">
+                <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
+            </div>
+        </div>
+    </section><!-- /.module.projects -->
 {% endblock %}

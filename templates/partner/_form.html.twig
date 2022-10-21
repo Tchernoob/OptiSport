@@ -1,1 +1,38 @@
-{{ form(form) }}
+{{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.is_active)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.summary)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.description)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.url)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.logo)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.template)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.mods)}}
+        </div>
+        <div class="col">
+            {{ form_row(form.user)}}
+        </div>
+        <div class="row">
+            {{ form_row(form.Ajouter)}}
+        </div>
+    </div>
+{{ form_end(form) }}

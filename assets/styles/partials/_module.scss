@@ -15,7 +15,7 @@
     justify-content: center;
 }
 
-.module-title-hdr.partner {
+.module-title-hdr.entities {
     margin: 4rem 0rem;
 }
 
@@ -30,6 +30,10 @@
 
 .module-content {
     display: flex;
+}
+
+.module-content.entity {
+    flex-direction: column;
 }
 
 .structure {
@@ -55,4 +59,21 @@
 
 .partner-text {
     flex: 5;
+}
+
+.count-entity {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+.add-entity {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.table-sep {
+    border-bottom: 2px solid;
+    color: $green;
 }
