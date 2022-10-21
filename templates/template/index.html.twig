@@ -57,7 +57,8 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Template</th>
+                        <th scope="col">Nom Template</th>
+                        <th scope="col">Date Création</th>
                         <th scope="col">Status</th>
                         <th scope="col">Nombre Modules</th>
                         <th scope="col">Action</th>
@@ -71,12 +72,13 @@
                         <tr>
                             <td scope="row"> {{ template.id }}</td>
                             <td> {{ template.name }}</td>
+                            <td> {{ template.createdAt | date('d-m-Y') }}</td> 
                             {% if template.isActive %}
                                 <td>Actif</td>
                             {% else %}
                                 <td>Inactif</td>
                             {% endif %}
-                            <td scope="row">3</td>
+                            <td scope="row"> {{ template.modules | length}}</td>
                             <td>
                                 <a class="btn btn-outline-success" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
                                 <a class="btn btn-outline-danger" href="{{ path('edit_template', {id: template.id}) }}">Supprimer</a>

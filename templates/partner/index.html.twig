@@ -66,6 +66,7 @@
                     <tr>
                         <th class="" scope="col">#</th>
                         <th scope="col">Nom Partenaire</th>
+                        <th scope="col">Date Création</th>
                         <th scope="col">Status</th>
                         <th scope="col">Package Associé</th>
                         <th scope="col">Action</th>
@@ -78,22 +79,18 @@
                         {% endfor %} #}
                         <tr>
                             <td scope="row"> {{ partner.id }}</td>
-                            <td> {{ partner.name }}</td>
+                            <td>{{ partner.name }}</td>
+                            <td>{{ partner.createdAt | date('d-m-Y')}}</td>
                             {% if partner.isActive %}
                                 <td>Actif</td>
                             {% else %}
                                 <td>Inactif</td>
                             {% endif %}
-                            <td> {{ partner.template}}
-                                {# <ul>
-                                    {% for template in partner.template %}
-                                        {{ template.name }}
-                                    {% endfor %}
-                                 {% for mod in partner.mods %}
-                                    <li> {{ mod.name}} </li>
-                                 {% endfor %}
-                                </ul> #}
-                            </td>
+                            {% if partner.template %}
+                                <td>{{ partner.template}}</td>
+                            {% else %}
+                                <td> Aucun </td>
+                            {% endif %}
                             <td>
                     
                                 <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>

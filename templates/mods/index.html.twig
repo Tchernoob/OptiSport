@@ -71,7 +71,7 @@
                         <tr>
                             <td scope="row"> {{ module.id }}</td>
                             <td> {{ module.name }}</td>
-                            <td> Une Date dynamique, à fix</td>
+                            <td> {{ module.createdAt | date('d-m-Y') }}</td>
                             {% if module.isActive %}
                                 <td>Actif</td>
                             {% else %}

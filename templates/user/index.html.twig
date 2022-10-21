@@ -1,20 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <header class="module-title-hdr entities">
+        <h1>Utilisateurs</h1>
+    </header>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="home-hdr-sep"> 
+    </div>
+    
+    <section class="module template">
+        <div class="module-content entity">
+                        <nav class="list-filters">
+                <h3>Filtres</h3>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">ID</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label">Nom</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="label">Prénom</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row email">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="label">Email</label>
+                            <input type="text" class="form-control w100" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {# <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
+                    </div> #}
+                    <div class="col-md-6 button-filter">
+                        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
+                    </div>
+                </div>
+            </nav>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/OptiSport/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/OptiSport/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <div class="home-hdr-sep"> 
+            </div>
+
+            <h3 class="count-entity">{{ pluralize(users|length, 'Utilisateur OptiSport', 'Utilisateurs OptiSport') }}</h3>
+
+            <div class="container table-container">
+                <table class="table table-bordered table-container">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Date Création</th>
+                        <th scope="col">Email</th>
+                        {# <th scope="col">Rôle</th> #}
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    {% for user in users  %}
+                        <tr>
+                            <td scope="row"> {{ user.id }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.createdAt | date('d-m-Y') }}</td>
+                            <td>{{ user.email }}</td>
+                            {# <td>{{ user.roles }}</td> #}
+                            
+                            <td>
+                                {# <a class="btn btn-outline-success" href="{{ path('edit_user', {id: user.id}) }}">Modifier</a>
+                                <a class="btn btn-outline-danger" href="{{ path('edit_user', {id: user.id}) }}">Supprimer</a> #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-sep "> 
+            </div>
+
+            <div class="add-entity">
+                {# <a class="btn btn-outline-success btn-lg" href="{{ path('new_user') }}">Ajouter un Utilisateur</a> #}
+            </div>
+        </div>
+    </section><!-- /.module.projects -->
 {% endblock %}
