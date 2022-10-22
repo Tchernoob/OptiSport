@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,6 +32,8 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('first_name', TextType::class)
             ->add('last_name', TextType::class)
+
+            ->add('Ajouter', SubmitType::class)
         ;
 
         $builder->addEventSubscriber(new UserFormSubscriber($this->em));
