@@ -20,7 +20,7 @@ class ModsType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('is_active', CheckboxType::class, [
-                'label' => 'Module actif',
+                'label' => 'Module Disponible',
                 'data' => true,
                 'required' => false,
             ])

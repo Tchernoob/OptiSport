@@ -8,7 +8,21 @@
 {% block title %}{{partner.name}}{% endblock %}
 
 {% block body %}
- <h3>{{ partner.name }}</h3>
+    <header class="module-title-hdr entities">
+        <img 
+            class="entity-logo partner" 
+            src="{{ asset('uploads/partner/logo/'~partner.logo)}}"
+            alt="opti-image"
+            >
+        <h1 class="title-entity partner">{{ partner.name }}</h1>
+        <div class="entity-text">
+            <p>{{partner.description}}</p>
+        </div>
+    </header>
+
+    <div class="home-hdr-sep"> 
+    </div>
+
  <p> {{ partner.description }}</p>
 
  {% if structures is not empty  %}

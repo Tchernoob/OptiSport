@@ -42,9 +42,9 @@ class ModsRepository extends ServiceEntityRepository
     // permet de récupérer seulement les modules actifs pour les formulaires de créations Partner et Structure
     public function getModsActive()
     {
-        return $this->createQueryBuilder('t')
-            ->where('t.is_active = true')
-            ->orderBy('t.id', 'ASC');
+        return $this->createQueryBuilder('m')
+            ->where('m.is_active = true')
+            ->orderBy('m.id', 'ASC');
     }
 
 

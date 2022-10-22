@@ -40,7 +40,7 @@ class TemplateController extends AbstractController
             $manager->persist($template);
             $manager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_template');
         }
 
         return $this->renderForm('template/new.html.twig', [

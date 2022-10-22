@@ -4,7 +4,7 @@
 
 {% block body %}
     <header class="module-title-hdr entities">
-        <h1>Modules</h1>
+        <h1 class="title-entity">Modules</h1>
     </header>
 
     <div class="home-hdr-sep"> 
@@ -78,8 +78,8 @@
                                 <td>Inactif</td>
                             {% endif %}
                             <td>
-                                <a class="btn btn-outline-success" href="{{ path('edit_template', {id: module.id}) }}">Modifier</a>
-                                <a class="btn btn-outline-danger" href="{{ path('edit_template', {id: module.id}) }}">Supprimer</a>
+                                <a class="btn btn-outline-success" href="{{ path('edit_module', {id: module.id}) }}">Modifier</a>
+                                <a class="btn btn-outline-danger" href="{{ path('edit_module', {id: module.id}) }}">Supprimer</a>
                             </td>
                         </tr>
                     {% endfor %}

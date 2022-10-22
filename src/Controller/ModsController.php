@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Mods;
+use App\Entity\Template;
 use App\Form\ModsType;
 use App\Repository\ModsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,7 +59,7 @@ class ModsController extends AbstractController
             $em->persist($module);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_mods');
         }
 
         return $this->renderForm('mods/edit.html.twig', [
