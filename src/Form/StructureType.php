@@ -65,8 +65,8 @@ class StructureType extends AbstractType
             ])
             ->add('mods', EntityType::class,  [
                 'class' => Mods::class,
-                'query_builder' => function (ModsRepository $mr) {
-                    return $mr->getModsActive();
+                'query_builder' => function (ModsRepository $mr) use ($options) {
+                    return $mr->findPartnerModsInactive($options['partner_id']);
                 },
                 'multiple'=>true,
                 'required'=>false,
@@ -82,7 +82,8 @@ class StructureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Structure::class,
-            'allow_extra_fields' => true 
+            'allow_extra_fields' => true, 
+            'partner_id' => null
         ]);
     }
 }

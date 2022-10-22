@@ -107,11 +107,12 @@ class PartnerController extends AbstractController
     #[Route('/newStructure/{id}', name: 'new_structure')]
     public function newStructure(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Partner $partner, MailerInterface $mailer): Response
     {
-
         $structure = new Structure();
         $user = new User();
         $user->setStructure($structure);
-        $form = $this->createForm(StructureType::class, $structure);
+        $form = $this->createForm(StructureType::class, $structure, [
+            'partner_id' => $partner->getId()
+        ]);
 
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
         {
