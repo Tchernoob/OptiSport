@@ -8,6 +8,8 @@ use App\Form\EventListener\UserFormSubscriber;
 use App\Entity\Mods;
 use App\Entity\Structure;
 use App\Entity\Template;
+use App\Repository\ModsRepository;
+use App\Repository\TemplateRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -55,18 +57,24 @@ class StructureType extends AbstractType
             ])
             ->add('template', EntityType::class, [
                 'class' => Template::class,
+                'query_builder' => function (TemplateRepository $tr) {
+                    return $tr->getTemplatesActive();
+                },
                 'multiple'=>false,
                 'required'=>false,
             ])
             ->add('mods', EntityType::class,  [
                 'class' => Mods::class,
+                'query_builder' => function (ModsRepository $mr) {
+                    return $mr->getModsActive();
+                },
                 'multiple'=>true,
                 'required'=>false,
             ])
             ->add('user', UserType::class,
                 ['label' => false])
 
-            ->add('Ajouter', SubmitType::class)
+            // ->add('Ajouter', SubmitType::class)
         ;
     }
 

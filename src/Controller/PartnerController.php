@@ -10,6 +10,7 @@ use App\Form\PartnerType;
 use App\Form\StructureType;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
+use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/new', name: 'new_partner')]
-    public function new(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, MailerInterface $mailer) : Response
+    public function new(Request $request, TemplateRepository $templateRepository, EntityManagerInterface $manager, SluggerInterface $slugger, MailerInterface $mailer) : Response
     {
         $partner = new Partner();
         $user = new User(); 
@@ -81,7 +82,9 @@ class PartnerController extends AbstractController
 
 
 
-            return $this->redirectToRoute('app_partner_show', ['id' => $partner->getId()]);
+            return $this->redirectToRoute('app_partner_show', [
+                'id' => $partner->getId(), 
+            ]);
         }
 
         return $this->renderForm('partner/new.html.twig', [

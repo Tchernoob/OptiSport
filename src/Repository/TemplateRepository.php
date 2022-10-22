@@ -39,6 +39,13 @@ class TemplateRepository extends ServiceEntityRepository
         }
     }
 
+    public function getTemplatesActive()
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.is_active = true')
+            ->orderBy('t.name', 'ASC');
+    }
+
 //    /**
 //     * @return Template[] Returns an array of Template objects
 //     */

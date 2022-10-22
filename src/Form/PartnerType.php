@@ -7,7 +7,10 @@ use App\Entity\Partner;
 use App\Entity\Template;
 use App\Entity\User;
 use App\Form\EventListener\UserFormSubscriber;
+use App\Repository\ModsRepository;
+use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,7 +24,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartnerType extends AbstractType
 {
-
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager; 
@@ -56,18 +58,24 @@ class PartnerType extends AbstractType
             ])
             ->add('template', EntityType::class, [
                 'class' => Template::class,
+                'query_builder' => function (TemplateRepository $tr) {
+                    return $tr->getTemplatesActive();
+                },
                 'multiple' =>false,
                 'required' =>false,
             ])
             ->add('mods', EntityType::class, [
                 'class' => Mods::class,
+                'query_builder' => function (ModsRepository $mr) {
+                    return $mr->getModsActive();
+                },
                 'multiple' =>true,
                 'required' =>false,
             ])
             ->add('user', UserType::class,
                 ['label' => false])
 
-            ->add('Ajouter', SubmitType::class)
+            // ->add('Ajouter', SubmitType::class)
         ;
     }
 
