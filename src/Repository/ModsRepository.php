@@ -47,6 +47,44 @@ class ModsRepository extends ServiceEntityRepository
             ->orderBy('m.id', 'ASC');
     }
 
+    public function findPartnerModsactive($partner)
+    {   
+        
+        // $qb = $this->getEntityManager()->createQueryBuilder(); 
+
+        // $q1 = 
+        // $qb
+        // ->innerJoin('m.partners', 'p')
+        // ->where('p.id = :partner')
+        // ->setParameter('partner', $partner); 
+
+
+        // $q2 =
+        // $qb
+        // ->where($qb->expr()->notIn('id', $q1->getDQL())); 
+        // return $q2->getQuery()->getResult(); 
+
+        $conn = $this->getEntityManager()
+        ->getConnection();
+
+        $sql = "SELECT * FROM mods m
+        where m.id not in 
+        (SELECT m.id from mods 
+        INNER JOIN partner_mods pm 
+        ON m.id = pm.mods_id 
+        INNER JOIN partner p 
+        ON pm.partner_id = p.id 
+        WHERE p.id = ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $partner);
+        $res = $stmt->executeQuery();
+
+        return $res->fetchAllAssociative();; 
+
+    } 
+
+
+
 
 
 //    /**

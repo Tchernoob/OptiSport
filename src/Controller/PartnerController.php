@@ -71,6 +71,7 @@ class PartnerController extends AbstractController
             //pour l'envoi dans la bdd
             $manager->persist($partner);
             $manager->persist($user);
+
             $manager->flush();
 
             $message = (new Email())
@@ -140,6 +141,13 @@ class PartnerController extends AbstractController
             //pour l'envoi dans la bdd
             $manager->persist($structure);
             $manager->persist($user);
+
+            $mods = $partner->getMods(); 
+            foreach($mods as $mod)
+            {
+                $structure->addMods($mod); 
+            }
+
             $manager->flush();
 
             $message = (new Email())
