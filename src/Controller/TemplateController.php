@@ -58,7 +58,7 @@ class TemplateController extends AbstractController
             $em->persist($template);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_template');
         }
 
         return $this->renderForm('template/edit.html.twig', [
