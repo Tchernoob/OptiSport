@@ -55,18 +55,10 @@ class StructureType extends AbstractType
                 'class' => Department::class,
                 'multiple'=>false,
             ])
-            ->add('template', EntityType::class, [
-                'class' => Template::class,
-                'query_builder' => function (TemplateRepository $tr) {
-                    return $tr->getTemplatesActive();
-                },
-                'multiple'=>false,
-                'required'=>false,
-            ])
             ->add('mods', EntityType::class,  [
                 'class' => Mods::class,
-                'query_builder' => function (ModsRepository $mr) {
-                    return $mr->getModsActive();
+                'query_builder' => function (ModsRepository $mr) use ($options) {
+                    return $mr->findPartnerModsInactive($options['partner_id']);
                 },
                 'multiple'=>true,
                 'required'=>false,
@@ -82,7 +74,8 @@ class StructureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Structure::class,
-            'allow_extra_fields' => true 
+            'allow_extra_fields' => true, 
+            'partner_id' => null
         ]);
     }
 }

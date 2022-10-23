@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+        {{ encore_entry_script_tags('partnerFilter') }}
+		{{ parent() }}
+ {% endblock %}
+
 {% block title %}Partenaires{% endblock %}
+
+
 
 {% block body %}
     <header class="module-title-hdr entities">
@@ -24,13 +31,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="label">Nom Partenaire</label>
-                            <input type="text" class="form-control w100" placeholder="" />
+                            <input type="text" class="form-control w100" id="partnerName" placeholder="" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="label">Statut Partenaire</label>
-                            <select class="form-control selectpicker" title="">
+                            <select class="form-control selectpicker" id="partnerStatus" title="">
                                 <option>actif</option>
                                 <option>Inactif</option>
                             </select>
@@ -40,7 +47,7 @@
                 <div class="row email">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="label">Email Partenaire</label>
+                            <label class="label" id="partnerEmail">Email Partenaire</label>
                             <input type="text" class="form-control w100" placeholder="" />
                         </div>
                     </div>
@@ -59,7 +66,10 @@
             </div>
 
             <h3 class="count-entity">{{ pluralize(partners|length, 'Partenaire OptiSport', 'Partenaires OptiSport') }}</h3>
+            
+            <div class="resultat">
 
+            </div>
             <div class="container table-container">
                 <table class="table table-bordered table-container">
                     <thead>
