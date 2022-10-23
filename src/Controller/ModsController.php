@@ -19,7 +19,6 @@ class ModsController extends AbstractController
     #[Route('/', name: 'app_mods')]
     public function index(ModsRepository $modsRepository): Response
     {
-        dd($modsRepository->findPartnerModsInactive(1)); 
         $modules = $modsRepository->findAll();
 
         return $this->render('mods/index.html.twig', [

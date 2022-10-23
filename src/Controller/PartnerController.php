@@ -12,6 +12,7 @@ use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
 use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\AST\NewObjectExpression;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -149,6 +150,9 @@ class PartnerController extends AbstractController
                 $structure->addMods($mod); 
             }
 
+            $template = $partner->getTemplate(); 
+            $structure->setTemplate($template); 
+
             $manager->flush();
 
             $message = (new Email())
@@ -231,5 +235,20 @@ class PartnerController extends AbstractController
 
         return new JsonResponse($partner->isIsActive());
 
+    }
+
+    #[Route('/filter/{val}', name: 'filter_partner', methods: ['GET'])]
+    public function filterPartner(PartnerRepository $pr, $val) : JsonResponse
+    {
+     
+        $partnerFiltered = $pr->findByCriteria($val);
+
+        $result = []; 
+        foreach($partnerFiltered as $partner)
+        {
+            $data = ['name' => $partner->getName()];
+            $result[] = $data; 
+        }
+        return new JsonResponse($result);
     }
 }

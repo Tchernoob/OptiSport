@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('activateModules', './assets/js/activateModules.js')
     .addEntry('activatePartner', './assets/js/activatePartner.js')
+    .addEntry('partnerFilter', './assets/js/partnerFilter.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

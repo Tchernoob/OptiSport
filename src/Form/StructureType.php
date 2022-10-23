@@ -55,14 +55,6 @@ class StructureType extends AbstractType
                 'class' => Department::class,
                 'multiple'=>false,
             ])
-            ->add('template', EntityType::class, [
-                'class' => Template::class,
-                'query_builder' => function (TemplateRepository $tr) {
-                    return $tr->getTemplatesActive();
-                },
-                'multiple'=>false,
-                'required'=>false,
-            ])
             ->add('mods', EntityType::class,  [
                 'class' => Mods::class,
                 'query_builder' => function (ModsRepository $mr) use ($options) {
