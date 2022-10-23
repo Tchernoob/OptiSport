@@ -21,7 +21,7 @@ class ModsController extends AbstractController
     {
         $modules = $modsRepository->findAll();
 
-        return $this->render('mods/index.html.twig.', [
+        return $this->render('mods/index.html.twig', [
             'modules' => $modules,
         ]);
     }
