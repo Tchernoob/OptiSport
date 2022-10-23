@@ -97,7 +97,7 @@ class PartnerController extends AbstractController
 
     #[Route('/{id}', name: 'app_partner_show', methods: ['GET'])]
     public function show(Partner $partner, ModsRepository $modRepo): Response
-    {
+    {       
         return $this->render('partner/show.html.twig', [
             'partner' => $partner,
             'structures' => $partner->getStructures(),
@@ -244,9 +244,21 @@ class PartnerController extends AbstractController
         $partnerFiltered = $pr->findByCriteria($val);
 
         $result = []; 
+       
         foreach($partnerFiltered as $partner)
         {
-            $data = ['name' => $partner->getName()];
+            $date = $partner->getcreatedAt()->format('d-m-Y');
+
+            $data =
+            [
+                'id' => $partner->getId(), 
+                'name' => $partner->getName(),
+                'status' => $partner->isIsActive(), 
+                'url' => $partner->getUrl(),
+                'createdAt' => $date,
+                'template' => $partner->getTemplate(),
+            ];
+
             $result[] = $data; 
         }
         return new JsonResponse($result);

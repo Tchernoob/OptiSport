@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //pour chacun de ces boutons: 
     
     for (const activatePartnerBtn of activatePartnersBtns) {
-        const partnerStatus = activatePartnerBtn.parentNode.parentNode.children[2];
+        const partnerStatus = activatePartnerBtn.parentNode.parentNode.children[3];
         //si un bouton est cliqué alors 
         activatePartnerBtn.addEventListener("click", (e) => {
           
@@ -19,11 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .then((response) => {
              if(response) {
+              activatePartnerBtn.classList.remove('btn-outline-success');
+              activatePartnerBtn.classList.add('btn-outline-danger');
               activatePartnerBtn.innerHTML = "Désactiver";
               partnerStatus.innerHTML = "Actif";
              }
              else 
              {
+              activatePartnerBtn.classList.remove('btn-outline-danger');
+              activatePartnerBtn.classList.add('btn-outline-success');
               activatePartnerBtn.innerHTML = "Activer";
               partnerStatus.innerHTML = "Inactif";
              }

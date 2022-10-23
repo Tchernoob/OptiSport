@@ -56,9 +56,9 @@
                     {# <div class="col-md-6">
                         <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
                     </div> #}
-                    <div class="col-md-6 button-filter">
+                    {# <div class="col-md-6 button-filter">
                         <button type="button" class="btn btn-outline-success btn-lg btn-block" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
-                    </div>
+                    </div> #}
                 </div>
             </nav>
 
@@ -68,8 +68,8 @@
             <h3 class="count-entity">{{ pluralize(partners|length, 'Partenaire OptiSport', 'Partenaires OptiSport') }}</h3>
             
             <div class="resultat">
-
             </div>
+
             <div class="container table-container">
                 <table class="table table-bordered table-container">
                     <thead>
@@ -83,35 +83,36 @@
                     </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                    {% for partner in partners  %}
-                        {# {% for mod in partner.mods %}
-                                {{ dump(mod) }}
-                        {% endfor %} #}
-                        <tr>
-                            <td scope="row"> {{ partner.id }}</td>
-                            <td>{{ partner.name }}</td>
-                            <td>{{ partner.createdAt | date('d-m-Y')}}</td>
-                            {% if partner.isActive %}
-                                <td>Actif</td>
-                            {% else %}
-                                <td>Inactif</td>
-                            {% endif %}
-                            {% if partner.template %}
-                                <td>{{ partner.template}}</td>
-                            {% else %}
-                                <td> Aucun </td>
-                            {% endif %}
-                            <td>
-                    
-                                <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
+                        {% for partner in partners  %}
+                            {# {% for mod in partner.mods %}
+                                    {{ dump(mod) }}
+                            {% endfor %} #}
+                            <tr class="partnerTr">
+                              
+                                <td class="parterId" scope="row"> {{ partner.id }}</td>
+                                <td class="partnerName">{{ partner.name }}</td>
+                                <td class="partnerCreatedAt">{{ partner.createdAt | date('d-m-Y')}}</td>
                                 {% if partner.isActive %}
-                                    <button data-partner="{{partner.id}}" class="btn btn-outline-danger activatePartner deactivate">Désactiver</button> 
+                                    <td class="partnerStatus">Actif</td>
                                 {% else %}
-                                    <button data-partner="{{partner.id}}" class="btn btn-outline-success activatePartner activate">Activer</button> 
+                                    <td class="partnerStatus">Inactif</td>
                                 {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
+                                {% if partner.template %}
+                                    <td class="partnerTemplate">{{ partner.template }}</td>
+                                {% else %}
+                                    <td class="partnerTemplate"> Aucun </td>
+                                {% endif %}
+                                <td class="partnerActions">
+                        
+                                    <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
+                                    {% if partner.isActive %}
+                                        <button data-partner="{{partner.id}}" class="btn btn-outline-danger activatePartner deactivate">Désactiver</button> 
+                                    {% else %}
+                                        <button data-partner="{{partner.id}}" class="btn btn-outline-success activatePartner activate">Activer</button> 
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
