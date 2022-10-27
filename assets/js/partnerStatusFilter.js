@@ -1,39 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //on récupère l'élément ayant pour ID partnerName
-    const namePartnersInput = document.querySelector("#partnerName");
+    //on récupère l'élément ayant pour ID partnerStatus
+    const statusPartnersInput = document.querySelector("#partnerStatus");
 
+    // selection du tbody résultat
     const tbodyResults = document.querySelector(".tbody-show-results");
+
+    // selection du tbody original
     const tbodyContent = document.querySelector(".tbody-content");
 
-
-    // selection du tbody ayant pour classe table-group-divider
-    const resultat = document.querySelector(".table-group-divider");
-
-    namePartnersInput.addEventListener("keyup", function (e) {
-        e.preventDefault();
-
-        //affichage du contenu de base si l'input est vide
-        if(this.value.length === 0 && tbodyContent.style.display === "none") {
-            tbodyContent.style.display = "";
-            tbodyResults.style.display = "none";  
-        }
-
-        // Filtre pour la validité de la recherche selon keycode JS dans l'Input nom du Partenaire
-        if ((this.value.length > 1) &&
-            (e.keyCode == 32 ||
-            (e.keyCode > 64 && e.keyCode < 91) ||
-            (e.keyCode > 96 && e.keyCode < 123) ||
-            (e.keyCode == 8 && namePartnersInput.value !== ""))) {
+    statusPartnersInput.addEventListener("change", function (event) {
+        event.preventDefault();
+        {
+            // affichage tu tbody originale si option du select status définis à tous les status
+            if (this.value === "all") {
+                tbodyContent.style.display = "";
+                tbodyResults.style.display = "none";  
+            }
+            else {
             //Requête au serveur en fetchant la route symfony avec en paramètre la valeur de l'input
-            fetch(`filter/${this.value}`)
+            fetch(`filterStatus/${this.value}`)
                 .then((response) => response.json())
                 .then((response) => {
                     tbodyResults.innerHTML = "";
                     tbodyResults.style.display = ""; 
                     tbodyContent.style.display = "none";
                     for (const partner of response) {
-                        // Reconstruction du contenu du  tbody
+                        
 
+                        // Reconstruction du contenu du  tbody
                         const tr = document.createElement('tr');
                         tr.classList.add('partnerTr');
 
@@ -92,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         tr.append(idTd, partnerName, partnerCreatedAt, partnerStatus, partnerTemplate, partnerActions);
                         tbodyResults.append(tr);
-
+                        
                         // Duplication de code, de activatePartner.js, est ce que j'ai une autre solution ? 
                         //on récupère tous les boutons ayant la classe activationModule
                         const activatePartnersBtns = document.querySelectorAll(".activatePartner");
@@ -131,10 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 })
-        }
-
-        else {
-
-        }
-    })
+           }
+    }
+})
 });

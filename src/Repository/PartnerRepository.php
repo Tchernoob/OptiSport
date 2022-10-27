@@ -59,6 +59,15 @@ class PartnerRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findByStatus($val) {
+        $qb = $this->createQueryBuilder('p')
+        ->select('p')
+        ->where('p.is_active = :val')
+        ->setParameter('val' , $val ); 
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Partner[] Returns an array of Partner objects
 //     */

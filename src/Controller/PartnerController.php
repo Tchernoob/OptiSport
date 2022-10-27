@@ -263,4 +263,31 @@ class PartnerController extends AbstractController
         }
         return new JsonResponse($result);
     }
+
+    #[Route('/filterStatus/{val}', name: 'filter_status_partner', methods: ['GET'])]
+    public function filterStatusPartner(PartnerRepository $pr, $val) : JsonResponse
+    {
+        
+        $partnerStatusFiltered = $pr->findByStatus($val);
+
+        $result = []; 
+       
+        foreach($partnerStatusFiltered as $partner)
+        {
+            $date = $partner->getcreatedAt()->format('d-m-Y');
+
+            $data =
+            [
+                'id' => $partner->getId(), 
+                'name' => $partner->getName(),
+                'status' => $partner->isIsActive(), 
+                'url' => $partner->getUrl(),
+                'createdAt' => $date,
+                'template' => $partner->getTemplate(),
+            ];
+
+            $result[] = $data; 
+        }
+        return new JsonResponse($result);
+    }
 }
