@@ -28,7 +28,7 @@ class Template
     #[ORM\OneToMany(mappedBy: 'template', targetEntity: Structure::class)]
     private Collection $structures;
 
-    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'templates')]
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'templates', orphanRemoval: true)]
     private Collection $modules;
 
     #[ORM\Column]

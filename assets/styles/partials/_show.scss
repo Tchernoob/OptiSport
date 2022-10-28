@@ -1,0 +1,30 @@
+/* template show entities */
+
+.entity-information {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.entity-information-title {
+    text-align: center;
+    font-family: 'Julius Sans One', sans-serif;
+    color: $red;
+    margin-bottom: 0.5rem;
+}
+
+.entity-information-information {
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1.3rem;
+}
+
+.entity-action-show {
+    display: flex;
+    justify-content: space-around;
+}
+
+.show {
+    margin-top: 2rem;
+}

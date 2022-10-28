@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartnerType extends AbstractType
+class PartnerEditType extends AbstractType
 {
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -64,10 +64,8 @@ class PartnerType extends AbstractType
                 'multiple' =>false,
                 'required' =>false,
             ])
-            ->add('user', UserType::class,
-                ['label' => false])
-
-            // ->add('Ajouter', SubmitType::class)
+        
+            ->add('Enregistrer', SubmitType::class)
         ;
     }
 

@@ -8,33 +8,67 @@
 {% block title %}{{partner.name}}{% endblock %}
 
 {% block body %}
+    {% if app.user and ('ROLE_ADMIN' in app.user.roles) %}
+      {% include 'nav.html.twig' %}
+    {% endif %}
+
     <header class="module-title-hdr entities">
+        {% if partner.logo is not empty %}
         <img 
             class="entity-logo partner" 
             src="{{ asset('uploads/partner/logo/'~partner.logo)}}"
             alt="opti-image"
             >
+        {% else %}
+        <img
+            class="entity-logo partner" 
+            src="{{asset('img/opti-home.png')}}"
+            alt="opti-image"
+            >
+        {% endif %}    
         <h1 class="title-entity partner">{{ partner.name }}</h1>
         <div class="entity-text">
             <p>{{partner.description}}</p>
         </div>
+        <div class="entity-action-show">
+            <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une structure</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ path('edit_partner', {id: partner.id}) }}">Modifier le partenaire</a>
+        </div>
+
+        {# Pour test  #}
+        {# {% for module in template.modules %}
+            <p> {{ module }} </p>
+        {% endfor %} #}
     </header>
 
     <div class="home-hdr-sep"> 
     </div>
 
- <p> {{ partner.description }}</p>
+    <section>
+      <div class="entity-information">
+        <h2 class="entity-information-title">Informations</h2>
+        <div class="entity-information-information">
+          <p> Partenaire crée le  {{ partner.createdAt | date('d-m-Y') }}
+          <p> Dernière Modification : {{ partner.updatedAt | date('d-m-Y') }}
+        
+          {% if partner.template is not empty %}
+            <p class="entity-template"> Package utilisé : {{ partner.template }} </p>
+          {% endif %}
 
- {% if structures is not empty  %}
-    <h4>Structures</h4>
-   <ul>
-    {% for structure in partner.structures  %}
-    <li> {{ structure.name }}</li>
-    <a class="btn btn-outline-success btn-lg" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
-    {% endfor %}
-   </ul>   
- {% endif %}
-   <ul>
+          {% if structures is not empty %}
+            <p class="entity-structure"> {{ partner.structures | length }} Structure(s) enregistrée(s) </p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <div class="home-hdr-sep"> 
+    </div>
+    
+
+    
+
+   {# <ul>
     {% for module in mods  %}
     <li> {{ module }}</li>
       {% if module in partner.mods %}
@@ -42,11 +76,41 @@
          {% else %}
         <button data-mod="{{module.id}}" data-partner="{{partner.id}}" class="activationModule activate">Activer</button>
       {% endif %}
-        
-   
-  
     {% endfor %}
-   </ul>
-    {# <a href="{{ path('edit_partner', {id: partner.id}) }}">Modifier le partenaire</a> #}
-    <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une structure</a>
+   </ul> #}
+
+  {% if structures is not empty  %}
+    <h2 class="title-entity show">Structures</h2>
+    
+    {% if structures | length is same as 1 %}
+       {% for structure in partner.structures  %}
+          <div class="card mb-3 unique-entity">
+            <img src="{{ asset('uploads/structure/logo/'~structure.logo)}}" class="card-img-top" alt="logo Structure">
+            <div class="card-body">
+              <h5 class="card-title">{{ structure.name }}</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+       {% endfor %}
+    {% else %}       
+      <div class="row margin-card">
+        {% for structure in partner.structures  %}
+          <div class="col-sm-6">
+            <div class="card text-dark bg-light mb-3 entity-card">
+              <div class="card-body">
+                <h5 class="card-title"> {{ structure.name }}</h5>
+                <p class="card-text"> {{ structure.summary }}</p>
+                <a class="btn btn-outline-success btn-lg" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% endif %}
+ {% endif %}
+       <div>
+      {{ include('partner/_delete_form.html.twig') }}
+      </div>
 {% endblock %}

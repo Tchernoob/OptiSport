@@ -1,10 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TemplateController!{% endblock %}
+{% block javascripts %}
+        {{ encore_entry_script_tags('templateFilter.js') }}
+        {{ encore_entry_script_tags('templateStatusFilter.js') }}
+		{{ parent() }}
+ {% endblock %}
+
+{% block title %}Packages{% endblock %}
 
 {% block body %}
+
+    {% include 'nav.html.twig' %}
+    
     <header class="module-title-hdr entities">
         <h1 class="title-entity">Packages</h1>
+        <div class="module-info">
+            <p class="module-text partner-text"> 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Libero odit ab est aliquid sapiente. 
+                Aut ipsum sunt id totam tempora, aspernatur est quisquam corrupti corporis, 
+                neque quasi ex quis consectetur.
+            </p>
+
+            <div class="status">
+                <p class="module-text entity-status"> {{ templates | length }} package(s) OptiSport au total </p>
+                <p class="module-text entity-status"> {{ activeTemplates | length}} package(s) OptiSport actif </p>
+            </div>
+            <div class="add-entity">
+                <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
+            </div>
+        </div>
     </header>
 
     <div class="home-hdr-sep"> 
@@ -15,34 +40,21 @@
             <nav class="list-filters">
                 <h3>Filtres</h3>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="label">ID</label>
-                            <input type="text" class="form-control w100" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <div class="form-group">
                             <label class="label">Nom Package</label>
-                            <input type="text" class="form-control w100" placeholder="" />
+                            <input type="text" class="form-control w100" id="templateName" placeholder="" />
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="form-group">
                             <label class="label">Statut Package</label>
                             <select class="form-control selectpicker" title="">
-                                <option>actif</option>
-                                <option>Inactif</option>
+                                <option value="1">actif</option>
+                                <option value = "0">Inactif</option>
+                                <option value="all">Tous</option>
                             </select>
                         </div>
-                    </div>
-                </div>
-                <div class="form-submit">
-                    {# <div class="col-md-6">
-                        <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
-                    </div> #}
-                    <div class="col-md-6 button-filter">
-                        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
                     </div>
                 </div>
             </nav>
@@ -64,36 +76,40 @@
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
-                    <tbody class="table-group-divider">
+
+                    <tbody class="tbody-content table-group-divider">
                     {% for template in templates  %}
-                        {# {% for mod in partner.mods %}
-                                {{ dump(mod) }}
-                        {% endfor %} #}
-                        <tr>
-                            <td scope="row"> {{ template.id }}</td>
-                            <td> {{ template.name }}</td>
-                            <td> {{ template.createdAt | date('d-m-Y') }}</td> 
+                        <tr class="templateTr">
+
+                            <td class="templateId" scope="row">{{ template.id }}</td>
+                            <td class="templateName">{{ template.name }}</td>
+                            <td class="templateCreatedAt">{{ template.createdAt | date('d-m-Y') }}</td> 
                             {% if template.isActive %}
-                                <td>Actif</td>
+                                <td class="templateStatus">Actif</td>
                             {% else %}
-                                <td>Inactif</td>
+                                <td class="templateStatus">Inactif</td>
                             {% endif %}
-                            <td scope="row"> {{ template.modules | length}}</td>
-                            <td>
+                            <td class="templateModules" scope="row"> {{ template.modules | length}}</td>
+                            
+                            <td class="templateActions">
+                                {# Pour Test
+                                {% for tunused in templateUnused %}
+                                    <p> {{tunused.name }}
+                                {% endfor %} #}
+
                                 <a class="btn btn-outline-success" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
-                                <a class="btn btn-outline-danger" href="{{ path('edit_template', {id: template.id}) }}">Supprimer</a>
+                                <div>
+                                    {{ include('template/_delete_form.html.twig') }}
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
+
+                    <tbody class="tbody-show-results table-group-divider">
+                    </tbody>
+
                 </table>
-            </div>
-
-            <div class="table-sep "> 
-            </div>
-
-            <div class="add-entity">
-                <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
             </div>
         </div>
     </section><!-- /.module.projects -->

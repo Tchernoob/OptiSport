@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/template')]
@@ -20,8 +21,29 @@ class TemplateController extends AbstractController
     public function index(TemplateRepository $templateRepository): Response
     {
         $templates = $templateRepository->findAll();
+        
+
+        $templateUnused = [];
+        foreach($templates as $template)
+        {
+            $partner = $template->getPartners();
+            $structure = $template->getStructures();
+            
+            // si un template est inactif tant chez les partenaires que chez les structures, on l'enregistre dans le tableau
+            // contenant les templates non utilisés  
+            if (count($partner) == 0 && count($structure) == 0) {
+                array_push($templateUnused, $template);
+            }
+        }
+
+        
+        $activeTemplates = $templateRepository->findBy(['is_active' => true]);
+        $notActiveTemplates = $templateRepository->findBy(['is_active' => false]);
         return $this->render('template/index.html.twig', [
             'templates' => $templates,
+            'activeTemplates' => $activeTemplates,
+            'notActiveTemplates' => $notActiveTemplates,
+            'templateUnused' => $templateUnused,
         ]);
     }
 
@@ -64,5 +86,42 @@ class TemplateController extends AbstractController
         return $this->renderForm('template/edit.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/filter/{val}', name: 'filter_template', methods: ['GET'])]
+    public function filterPartner(TemplateRepository $tr, $val) : JsonResponse
+    {
+     
+        $templateFiltered = $tr->findByCriteria($val);
+
+        $result = []; 
+       
+        foreach($templateFiltered as $template)
+        {
+            $date = $template->getcreatedAt()->format('d-m-Y');
+            $modules = $template->getModules();
+            $countMods = count($modules);
+
+            $data =
+            [
+                'id' => $template->getId(), 
+                'name' => $template->getName(),
+                'status' => $template->isIsActive(), 
+                'createdAt' => $date,
+                'modules' => $countMods,
+            ];
+
+            $result[] = $data; 
+        }
+        return new JsonResponse($result);
+    }
+
+    #[Route('/delete/{id}', name: 'delete_template', methods: ['POST'])]
+    public function deleteAdmin(Template $template, EntityManagerInterface $entityManager) : Response
+    {        
+        $entityManager->remove($template);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_template', [], Response::HTTP_SEE_OTHER);
     }
 }

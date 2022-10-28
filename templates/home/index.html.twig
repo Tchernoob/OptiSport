@@ -3,6 +3,9 @@
 {% block title %}Optisport{% endblock %}
 
 {% block body %}
+
+    {% include 'nav.html.twig' %}
+    
     <section>
         <header class="home-hdr">
             <h1>Bienvenue dans votre Espace de Gestion OpstiSport</h1>
@@ -45,8 +48,8 @@
                 </p>
             </div>
             <nav class="home-nav">
-                <a class="btn btn-outline-primary btn-large" href=""{{ path('app_partner') }}"">Gérer les partenaires</a>
-                <a class="btn btn-outline-primary btn-large" href=""{{ path('app_structure') }}"">Gérer les Structures</a>
+                <a class="btn btn-outline-primary btn-large" href="{{ asset('partner') }}">Gérer les partenaires</a>
+                <a class="btn btn-outline-primary btn-large" href="{{ asset('structure') }}">Gérer les Structures</a>
             </nav>
         </div>
 
@@ -81,55 +84,10 @@
                 <p class="module-text"> {{ activePartnersNumber}} partenaire(s) actif </p>
 
                 <div class="module-btn">
-                    <a class="btn btn-outline-primary btn-large" href="{{ path('app_partner') }}">Voir nos Partenaires</a>
+                    <a class="btn btn-outline-primary btn-large" href="{{ asset('partner') }}">Voir nos Partenaires</a>
                 </div>
             </div>
         <div>
-
-        {# <div class="module-content">
-            <table class="table list partner">
-                <thead>
-                    <tr>
-                        <th class="id" data-field="id">ID</th>
-                        <th class="name" data-field="name">Nom Partenaire</th>
-                        <th class="partner-user" data-field="partner-user">Utilisateur lié</th>
-                        <th class="status" data-field="status">Status</th>
-                        <th class="package" data-field="package">Package utilisé</th>
-                        <th class="url" data-field="url">Liens Site web</th>
-                        <th class="actions" data-field="actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for partner in partners %}
-                        <tr>
-                            <td class="id keycol"><a href="partner.html" class="fill-cell"> {{ partner.id }}</a></td>
-                            <td class="name keycol"><a href="partner.html" class="fill-cell"> {{ partner.name }}</a></td>
-                            <td class="partner-user"> {{ partner.user }}</td>
-                            <td class="partner-status">
-                                {% if partner.isActive %}
-                                    Actif
-                                {% else %}
-                                    Inactif
-                                {% endif %}                   
-                            </td>
-                            <th>
-                                {% if partner.template %}
-                                    {{ partner.template }} 
-                                {% else %}
-                                    Aucun
-                                {% endif %}
-                            </th>
-                            <td><a href="{{partner.url}}">{{partner.url}}</a></td>
-                            <td class="actions">
-                                <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
-                                <a href="#" class="">Modifier</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="partner.html" class="btn" data-icon="view" title="Voir tous les partenaires"><span class="text">Voir tous les partenaires</span></a>
-        </div> #}
     </section>
 
     <div class="home-hdr-sep"> 
@@ -162,54 +120,9 @@
                 <p class="module-text"> {{ activeStructuresNumber }} structure(s) active(s) </p>
 
                 <div class="module-btn">
-                    <a class="btn btn-outline-primary btn-large" href="{{ path('app_partner') }}">Voir nos Structures</a>
+                    <a class="btn btn-outline-primary btn-large" href="{{ path('app_structure') }}">Voir nos Structures</a>
                 </div>
             </div>
         <div>
-
-        {# <div class="module-content">
-            <table class="table list partner">
-                <thead>
-                    <tr>
-                        <th class="id" data-field="id">ID</th>
-                        <th class="name" data-field="name">Nom Partenaire</th>
-                        <th class="partner-user" data-field="partner-user">Utilisateur lié</th>
-                        <th class="status" data-field="status">Status</th>
-                        <th class="package" data-field="package">Package utilisé</th>
-                        <th class="url" data-field="url">Liens Site web</th>
-                        <th class="actions" data-field="actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for partner in partners %}
-                        <tr>
-                            <td class="id keycol"><a href="partner.html" class="fill-cell"> {{ partner.id }}</a></td>
-                            <td class="name keycol"><a href="partner.html" class="fill-cell"> {{ partner.name }}</a></td>
-                            <td class="partner-user"> {{ partner.user }}</td>
-                            <td class="partner-status">
-                                {% if partner.isActive %}
-                                    Actif
-                                {% else %}
-                                    Inactif
-                                {% endif %}                   
-                            </td>
-                            <th>
-                                {% if partner.template %}
-                                    {{ partner.template }} 
-                                {% else %}
-                                    Aucun
-                                {% endif %}
-                            </th>
-                            <td><a href="{{partner.url}}">{{partner.url}}</a></td>
-                            <td class="actions">
-                                <a class="btn btn-outline-primary" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
-                                <a href="#" class="">Modifier</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="partner.html" class="btn" data-icon="view" title="Voir tous les partenaires"><span class="text">Voir tous les partenaires</span></a>
-        </div> #}
     </section>
 {% endblock %}

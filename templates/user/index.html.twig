@@ -3,8 +3,14 @@
 {% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
+
+    {% include 'nav.html.twig' %}
+    
     <header class="module-title-hdr entities">
         <h1 class="title-entity">Utilisateurs</h1>
+        <div class="add-entity">
+            <a class="btn btn-outline-success btn-lg" href="{{ path('new_admin') }}">Ajouter un Administrateur</a>
+        </div>
     </header>
 
     <div class="home-hdr-sep"> 
@@ -15,51 +21,32 @@
                         <nav class="list-filters">
                 <h3>Filtres</h3>
                 <div class="row">
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="label">ID</label>
-                            <input type="text" class="form-control w100" placeholder="" />
-                        </div>
-                    </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="label">Nom</label>
                             <input type="text" class="form-control w100" placeholder="" />
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-group">
                             <label class="label">Prénom</label>
                             <input type="text" class="form-control w100" placeholder="" />
                         </div>
                     </div>
-                </div>
-                <div class="row email">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="label">Email</label>
-                            <input type="text" class="form-control w100" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-group">
                             <label class="label">Rôle</label>
                             <select class="form-control selectpicker" title="">
                                 <option>Administrateur OptiSport</option>
                                 <option>Manager Partenaire</option>
                                 <option>Manager Structure</option>
+                                <option>Tous</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="form-submit">
-                    {# <div class="col-md-6">
-                        <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-icon="reset" title="Remettre à zéro les filtres"><span class="icon"></span><span class="text">RAZ</span></button>
-                    </div> #}
-                    <div class="col-md-6 button-filter">
-                        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-icon="search" title="Rechercher"><span class="icon"></span><span class="text">Rechercher</span></button>
-                    </div>
-                </div>
+
+
             </nav>
 
             <div class="home-hdr-sep"> 
@@ -109,13 +96,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-
-            <div class="table-sep "> 
-            </div>
-
-            <div class="add-entity">
-                <a class="btn btn-outline-success btn-lg" href="{{ path('new_admin') }}">Ajouter un Administrateur</a>
             </div>
         </div>
     </section><!-- /.module.projects -->

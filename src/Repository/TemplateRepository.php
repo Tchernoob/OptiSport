@@ -46,6 +46,16 @@ class TemplateRepository extends ServiceEntityRepository
             ->orderBy('t.name', 'ASC');
     }
 
+    public function findbyCriteria($val) 
+    {   
+        $qb = $this->createQueryBuilder('t')
+        ->select('t')
+        ->where('t.name like :val')
+        ->setParameter('val' , '%' . $val . '%'); 
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Template[] Returns an array of Template objects
 //     */

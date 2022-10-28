@@ -3,17 +3,114 @@
 {% block title %}Structures{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
+    {% include 'nav.html.twig' %}
+    
+    <header class="module-title-hdr entities">
+        <h1 class="title-entity">Structures</h1>
+        <div class="module-info">
+            <p class="module-text partner-text"> 
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Libero odit ab est aliquid sapiente. 
+                Aut ipsum sunt id totam tempora, aspernatur est quisquam corrupti corporis, 
+                neque quasi ex quis consectetur.
+            </p>
+            <div class="status">
+                <p class="module-text entity-status"> {{ structures | length }} structure(s) OptiSport au total </p>
+                <p class="module-text entity-status"> {{ activeStructures | length}} structure(s) OptiSport active </p>
+            </div>
+        </div>
+    </header>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/OptiSport/src/Controller/StructureController.php'|file_link(0) }}">src/Controller/StructureController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/OptiSport/templates/structure/index.html.twig'|file_link(0) }}">templates/structure/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="home-hdr-sep"> 
+    </div>
+
+    <section class="module partner">
+        <div class="module-content entity">
+            <nav class="list-filters">
+                <h3>Filtres</h3>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="label">Nom Structure</label>
+                            <input type="text" class="form-control w100" id="partnerName" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="label">Statut Structure</label>
+                            <select class="form-control selectpicker" id="partnerStatus" title="">
+                                <option value="1">active</option>
+                                <option value="0">Inactive</option>
+                                <option value="all">Tous</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="home-hdr-sep"> 
+            </div>
+
+            <h3 class="count-entity">{{ pluralize(structures|length, 'Structure OptiSport', 'Structures OptiSport') }}</h3>
+            
+            <div class="resultat">
+            </div>
+
+            <div class="container table-container">
+                <table class="table table-bordered table-container">
+                    <thead>
+                    <tr>
+                        <th class="" scope="col">#</th>
+                        <th scope="col">Nom Structure</th>
+                        <th scope="col">Département</th>
+                        <th scope="col">Date Création</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Package Associé</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                
+                    <tbody class="tbody-content table-group-divider">
+                        {% for structure in structures %}
+                            <tr class="structureTr">
+                            
+                                <td class="structureId" scope="row"> {{ structure.id }}</td>
+                                <td class="structureName">{{ structure.name }}</td>
+                                <td class="structureDepartment"> {{ structure.department }}</td>
+                                <td class="structureCreatedAt">{{ structure.createdAt | date('d-m-Y')}}</td>
+                                {% if structure.isActive %}
+                                    <td class="strctureStatus">Active</td>
+                                {% else %}
+                                    <td class="structureStatus">Inactive</td>
+                                {% endif %}
+                                {% if structure.template %}
+                                    <td class="structureTemplate">{{ structure.template }}</td>
+                                {% else %}
+                                    <td class="structureTemplate"> Aucun </td>
+                                {% endif %}
+                                <td class="structureActions">
+                        
+                                    <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
+                                    {% if structure.isActive %}
+                                        <button data-partner="{{structure.id}}" class="btn btn-outline-danger activateStructure deactivate">Désactiver</button> 
+                                    {% else %}
+                                        <button data-partner="{{structure.id}}" class="btn btn-outline-success activateStructure activate">Activer</button> 
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                
+                    <tbody class="tbody-show-results table-group-divider">
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </section><!-- /.module.projects -->
+
+
+
+
 {% endblock %}

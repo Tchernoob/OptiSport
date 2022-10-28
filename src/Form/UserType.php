@@ -29,11 +29,35 @@ class UserType extends AbstractType
     {
 
         $builder
-            ->add('email', EmailType::class)
-            ->add('first_name', TextType::class)
-            ->add('last_name', TextType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email Administrateur',
+                'label_attr' => [
+                    'class' => 'user-label'
+                ],
+                'attr' => [
+                    'class' => 'user-input'
+                ]])
+            ->add('first_name', TextType::class, [
+                'label' => 'Prénom',
+                'label_attr' => [
+                'class' => 'user-label'
+            ],
+            'attr' => [
+                'class' => 'user-input'
+            ]])
+            ->add('last_name', TextType::class, [
+                'label' => 'Nom',
+                'label_attr' => [
+                'class' => 'user-label'
+            ],
+            'attr' => [
+                'class' => 'user-input'
+            ]])
 
-            ->add('Ajouter', SubmitType::class)
+            ->add('Ajouter', SubmitType::class, [
+                'attr' => [
+                'class' => 'btn btn-outline-success btn-lg btn-user' 
+            ]])
         ;
 
         $builder->addEventSubscriber(new UserFormSubscriber($this->em));

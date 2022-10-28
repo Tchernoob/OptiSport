@@ -1,0 +1,18 @@
+<header class="">
+    {% if app.user %}
+        <div class="user-header">
+            <p class=""> {{ app.user.firstName ~  app.user.lastName }}</p>
+            <a class="logout" href="{{ path('app_logout') }}">Se déconnecter</a>
+        </div>
+    {% endif %}
+    <div class="opt-logo">
+        <img class="img-logo" src="https://cdn-icons-png.flaticon.com/512/126/126481.png" alt="OptiSport-logo">
+    </div>
+    <div class="text-logo-hdr">
+        <h2>Gestion</h2>
+        <a class="logo" href="{{ path('app_home') }}">OptiSport</a>
+    </div>
+
+    <div class="separation">
+    </div>
+</header>

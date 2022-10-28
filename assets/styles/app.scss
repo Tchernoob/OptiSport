@@ -6,13 +6,15 @@
 @import 'partials/button';
 @import 'partials/base';
 @import 'partials/header';
+@import 'partials/user';
 @import 'partials/home';
 @import 'partials/module';
 @import 'partials/filter';
 @import 'partials/partner';
 @import 'partials/table';
+@import 'partials/show';
+@import 'partials/card';
 @import 'partials/footer';
-
 
 html, body {
   background-color: $black;

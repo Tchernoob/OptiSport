@@ -15,43 +15,7 @@
     </head>
     
     <body class="container-fluid">
-        <header class="">
-            <div class="opt-logo">
-                <img class="img-logo" src="https://cdn-icons-png.flaticon.com/512/126/126481.png" alt="OptiSport-logo">
-            </div>
-            <div class="text-logo-hdr">
-                <h2>Gestion</h2>
-                <a class="logo" href="{{ path('app_home') }}">OptiSport</a>
-            </div>
-
-            <div class="separation">
-            </div>
-    
-            <nav class="container-nav topBotomBordersOut">
-                <ul class="">
-                    <li class="nav-item"><a href="{{ asset('partner') }}" class="">Partenaires</a></li>
-                    <li class="nav-item"><a href="{{ asset('template') }}" class="">Packages</a></li>
-                    <li class="nav-item"><a href="{{ asset('mods') }}" class="">Modules</a></li>
-                    <li class="nav-item"><a href="{{ path('app_user') }}" class="">Utilisateurs</a></li>
-                {% if app.user %}
-                    {# <li class="">
-                        <a class="" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ app.user.firstName ~ app.user.lastName }}
-                        </a>
-                        <ul class="" aria-labelledby="">
-                            <li><a class="" href="#">Mon Compte</a></li>
-                            <li><a class="" href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                        </ul>
-                    </li> #}
-                {%  else %}
-                    <li class=""><a href="{{ path('app_login')}}" class="nav-link">Connexion</a></li>
-                {% endif %}
-                </ul>
-            <nav>
-        </header>
-
-        <div class="separation">
-        </div>
+       {% include 'header.html.twig' %}
 
         <main role="main" class="container flex-shrink-0">
             {% block body %}{% endblock %}

@@ -37,13 +37,13 @@ class Partner
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: Structure::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: Structure::class, orphanRemoval: true, cascade: ['remove'])]
     private Collection $structures;
 
     #[ORM\ManyToOne(inversedBy: 'partners')]
     private ?Template $template = null;
 
-    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'partners')]
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'partners', orphanRemoval: true)]
     private $mods;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

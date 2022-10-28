@@ -120,7 +120,7 @@ class Mods
         return $this;
     }
 
-        /**
+    /**
      * @return Collection<int, Structure>
      */
     public function getStructures(): Collection

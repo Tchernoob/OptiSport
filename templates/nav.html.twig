@@ -1,0 +1,25 @@
+<nav class="container-nav topBotomBordersOut">
+    <ul class="">
+        <li class="nav-item"><a href="{{ asset('partner') }}" class="">Partenaires</a></li>
+        <li class="nav-item"><a href="{{ asset('structure') }}" class="">Structures</a></li>
+        <li class="nav-item"><a href="{{ asset('template') }}" class="">Packages</a></li>
+        <li class="nav-item"><a href="{{ asset('mods') }}" class="">Modules</a></li>
+        <li class="nav-item"><a href="{{ path('app_user') }}" class="">Utilisateurs</a></li>
+    {% if app.user %}
+        {# <li class="">
+            <a class="" href="#" id="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ app.user.firstName ~ app.user.lastName }}
+            </a>
+            <ul class="" aria-labelledby="">
+                <li><a class="" href="#">Mon Compte</a></li>
+                <li><a class="" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            </ul>
+        </li> #}
+    {%  else %}
+        <li class=""><a href="{{ path('app_login')}}" class="nav-link">Connexion</a></li>
+    {% endif %}
+    </ul>
+</nav>
+
+<div class="separation">
+</div>

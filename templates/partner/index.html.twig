@@ -11,9 +11,12 @@
 
 
 {% block body %}
+
+    {% include 'nav.html.twig' %}
+    
     <header class="module-title-hdr entities">
         <h1 class="title-entity">Partenaires</h1>
-            <div class="module-info">
+        <div class="module-info">
             <p class="module-text partner-text"> 
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                 Libero odit ab est aliquid sapiente. 
@@ -80,9 +83,6 @@
                 
                     <tbody class="tbody-content table-group-divider">
                         {% for partner in partners  %}
-                            {# {% for mod in partner.mods %}
-                                    {{ dump(mod) }}
-                            {% endfor %} #}
                             <tr class="partnerTr">
                             
                                 <td class="parterId" scope="row"> {{ partner.id }}</td>
@@ -101,6 +101,7 @@
                                 <td class="partnerActions">
                         
                                     <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
+                                    <a class="btn btn-outline-primary btn-entity-show" href="{{ path('edit_partner', {id: partner.id}) }}">Modifier</a>
                                     {% if partner.isActive %}
                                         <button data-partner="{{partner.id}}" class="btn btn-outline-danger activatePartner deactivate">Désactiver</button> 
                                     {% else %}

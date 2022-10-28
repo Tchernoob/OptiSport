@@ -6,10 +6,12 @@ use App\Entity\Mods;
 use App\Entity\User;
 use App\Entity\Partner;
 use App\Entity\Structure;
+use App\Form\PartnerEditType;
 use App\Form\PartnerType;
 use App\Form\StructureType;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
+use App\Repository\StructureRepository;
 use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\AST\NewObjectExpression;
@@ -78,7 +80,7 @@ class PartnerController extends AbstractController
             $message = (new Email())
                 ->from('test@optisport.com')
                 ->to($formData->getUser()->getEmail())
-                ->subject('Bienvenue chew OptiSport !')
+                ->subject('Bienvenue chez OptiSport !')
                 ->text('http://127.0.0.1:8000/user/create-password/'.$formData->getUser()->getPassword());
             $mailer->send($message);
 
@@ -96,11 +98,12 @@ class PartnerController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_partner_show', methods: ['GET'])]
-    public function show(Partner $partner, ModsRepository $modRepo): Response
+    public function show(Partner $partner, ModsRepository $modRepo, TemplateRepository $templateRepository): Response
     {       
         return $this->render('partner/show.html.twig', [
             'partner' => $partner,
             'structures' => $partner->getStructures(),
+            'template' => $partner->getTemplate(),
             'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
     }
@@ -289,5 +292,69 @@ class PartnerController extends AbstractController
             $result[] = $data; 
         }
         return new JsonResponse($result);
+    }
+
+    #[Route('{id}/edit', name: 'edit_partner')]
+    public function edit(Request $request, Partner $partner, EntityManagerInterface $manager, SluggerInterface $slugger,  MailerInterface $mailer) : Response
+    {
+      
+        $user = $partner->getUser(); 
+        $user->setPartner($partner); 
+        $form = $this->createForm(PartnerEditType::class, $partner);
+        $password = $user->getPassword();
+        if($form->handleRequest($request)->isSubmitted() && $form->isValid())
+        {
+            $formData = $form->getData(); 
+
+            $file = $form['logo']->getData();
+            $extension = $file->guessExtension();
+            if(!$extension)
+            {
+                $extension = 'bin';
+            }
+
+            $newName = $slugger->slug($file->getClientOriginalName()).'-'.uniqid().'.'.$extension;
+            $file->move($this->getParameter('logo_partner_directory'), $newName);
+
+            $partner
+                ->setLogo($newName)
+                ->setUpdatedAt(new \DateTime());
+            
+            $user
+                ->setRoles(['ROLE_MANAGER'])
+                ->setPassword($password);
+
+            //pour l'envoi dans la bdd
+            $manager->persist($partner);
+            $manager->persist($user);
+
+            $manager->flush();
+
+            $message = (new Email())
+                ->from('test@optisport.com')
+                ->to($formData->getUser()->getEmail())
+                ->subject('Votre partenaire a été modifié')
+                ->text('Un Administrateur vient de modifier votre partenaire');
+            $mailer->send($message);
+
+
+
+            return $this->redirectToRoute('app_partner_show', [
+                'id' => $partner->getId(), 
+            ]);
+        }
+
+        return $this->renderForm('partner/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete_partner', methods: ['POST'])]
+    public function deleteAdmin(Partner $partner, EntityManagerInterface $entityManager) : Response
+    {        
+        $entityManager->remove($partner);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_partner', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -3,5 +3,62 @@
 {% block title %}{{structure.name}}{% endblock %}
 
 {% block body %}
-{{structure.name}}
+
+{% if app.user and ('ROLE_ADMIN' in app.user.roles) %}
+    {% include 'nav.html.twig' %}
+{% endif %}
+
+<header class="module-title-hdr entities">
+        {% if structure.logo is not empty %}
+        <img 
+            class="entity-logo partner" 
+            src="{{ asset('uploads/structure/logo/'~structure.logo)}}"
+            alt="opti-image"
+            >
+        {% else %}
+        <img
+            class="entity-logo partner" 
+            src="{{asset('img/opti-home.png')}}"
+            alt="opti-image"
+            >
+        {% endif %}    
+        <h1 class="title-entity partner">{{ structure.name }}</h1>
+        <div class="entity-text">
+            <p>{{structure.description}}</p>
+        </div>
+        <div class="entity-action-show">
+            <a class="btn btn-outline-success btn-lg" href="{{ path('edit_structure', {id: structure.id}) }}">Modifier la structure</a>
+        </div>
+    </header>
+
+    <div class="home-hdr-sep"> 
+    </div>
+
+    <section>
+      <div class="entity-information">
+        <h2 class="entity-information-title">Informations</h2>
+        <div class="entity-information-information">
+          <p> Partenaire crée le  {{ structure.createdAt | date('d-m-Y') }}
+          <p> Dernière Modification : {{ structure.updatedAt | date('d-m-Y') }}
+        
+          {% if structure.template is not empty %}
+            <p class="entity-template"> Package utilisé : {{ structure.template }} </p>
+          {% endif %}
+
+        {# Pour Test #}
+          {% for module in structureMods %}
+            <p> {{ module }} </p>
+          {% endfor %}
+
+        
+
+          {# {% if structures is not empty %}
+            <p class="entity-structure"> {{ partner.structures | length }} Structure(s) enregistrée(s) </p>
+          {% endif %} #}
+        </div>
+      </div>
+        <div>
+            {{ include('structure/_delete_form.html.twig') }}
+        </div>
+    </section>
 {% endblock %}
