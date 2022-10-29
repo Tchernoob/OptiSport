@@ -71,7 +71,7 @@
                             <td class="templateId" scope="row">{{ template.id }}</td>
                             <td class="templateName">{{ template.name }}</td>
                             <td class="templateCreatedAt">{{ template.createdAt | date('d-m-Y') }}</td> 
-                            <td class="templateModules" scope="row"> {{ template.modules | length}}</td>
+                            <td class="templateModules" scope="row"> {{ template.mods | length}}</td>
                             <td class="templateActions">
                                 <a class="btn btn-outline-success btn-entity-content" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
                                 {{ include('template/_delete_form.html.twig') }}

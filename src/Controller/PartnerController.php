@@ -109,6 +109,9 @@ class PartnerController extends AbstractController
     {
         $userId = $user->getId();       
         $userpartnerId = $partner->getUser()->getId();
+
+        $templateModsPartner = $partner->getTemplate()->getMods();
+        
         if (!$this->isGranted('ROLE_ADMIN') && $userId != $userpartnerId)
         {
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à voir le détail de ce partenaire');
@@ -118,6 +121,7 @@ class PartnerController extends AbstractController
             'partner' => $partner,
             'structures' => $partner->getStructures(),
             'template' => $partner->getTemplate(),
+            'templateMods' => $templateModsPartner,
             'mods' => $modRepo->findBy(['is_active' => true]), 
         ]);
     }
@@ -171,7 +175,16 @@ class PartnerController extends AbstractController
             }
 
             $template = $partner->getTemplate(); 
-            $structure->setTemplate($template); 
+
+            $modsTemplate = $template->getMods();
+            foreach($modsTemplate as $modtemplate)
+            {
+                $structure->addMods($modtemplate);
+            }
+            
+            $structure
+                ->setTemplate($template);
+                    
 
             $manager->flush();
 

@@ -101,7 +101,6 @@
                                 <td class="partnerActions">
                         
                                     <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_partner_show', {id: partner.id}) }}">Voir</a>
-                                    <a class="btn btn-outline-warning btn-entity-show" href="{{ path('edit_partner', {id: partner.id}) }}">Modifier</a>
                                     {% if partner.isActive %}
                                         <button data-partner="{{partner.id}}" class="btn btn-outline-danger activatePartner deactivate">Désactiver</button> 
                                     {% else %}

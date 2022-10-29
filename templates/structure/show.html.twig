@@ -41,7 +41,11 @@
       <h3 class="title-entity partner">Package & Modules</h3>
       <div class="entity-text details">
           {% if structure.template is not empty %}
-              <p class="module-text"> Package utilisé : {{ structure.template }} </p>
+              <p class="module-text"> Package partenaire : {{ structure.template }} </p>
+              <p class="module-text"> Modules Structure : </p>
+               {% for module in structure.template %}
+                <p class="module-text btn btn-lg btn-primary "> {{ module.template }} </p>
+                 {% endfor %}
           {% else %}
               <p class="module-text"> Aucun Package rattaché à la structure {{ structure. name }} </p>
           {% endif %}

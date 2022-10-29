@@ -17,6 +17,13 @@
     font-size: 1.2rem;
 }
 
+#template_mods {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+}
+
 .col-form-label {
     font-size: 1.5rem;
     padding: 1rem;
@@ -29,4 +36,15 @@
 .btn-template {
     margin: auto;
     display: grid;
+}
+
+.label-edit-structure {
+    text-align: center;
+}
+
+.label-template {
+    font-size: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    display: block;
 }

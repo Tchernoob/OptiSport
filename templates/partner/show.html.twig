@@ -1,10 +1,5 @@
 {% extends 'base.html.twig' %}
 
- {% block javascripts %}
-        {{ encore_entry_script_tags('activateModules') }}
-		{{ parent() }}
- {% endblock %}
-
 {% block title %}{{partner.name}}{% endblock %}
 
 {% block body %}
@@ -40,13 +35,18 @@
       >  
       <h3 class="title-entity partner">Package & Structures</h3>
       <div class="entity-text details">
-          {% if partner.template is not empty %}
-              <p class="module-text"> Package utilisé : {{ partner.template }} </p>
+        {% if partner.template is not empty %}
+                <p class="module-text"> Package utilisé : {{ partner.template }} </p>
+                {% for module in templateMods %}
+                    <p class="module-text btn btn-lg btn-dark "> {{ module.name }} </p>
+                {% endfor %}
           {% else %}
-              <p class="module-text"> Aucun Package rattaché à la structure {{ partner.name }} </p>
+                <p class="module-text"> Aucun Package rattaché à la structure {{ partner.name }} </p>
           {% endif %}
+                  <p class="module-text"> Structure(s) du Partenaire :  </p>
           {% for structure in partner.structures  %}
-              <a class="module-text btn btn-lg btn-primary" href="{{ path('app_structure_show', {id: structure.id}) }}"> {{ structure.name }}</a>
+              
+                <a class="module-text btn btn-lg btn-primary" href="{{ path('app_structure_show', {id: structure.id}) }}"> {{ structure.name }}</a>
           {% endfor %}
       </div>
     </section>

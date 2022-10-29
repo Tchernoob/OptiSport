@@ -38,44 +38,11 @@
 
     <section class="module template">
         <div class="module-content entity">
-            <nav class="list-filters">
-                <h3>Filtres</h3>
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <label class="label">Nom Module</label>
-                            <input type="text" class="form-control w100" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="label">Statut Module</label>
-                            <select class="form-control selectpicker" title="">
-                                <option value="1">actif</option>
-                                <option value="0">Inactif</option>
-                                <option value="all">Tous</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="home-hdr-sep"> 
-            </div>
-
-            {% for mod in modulesUnused %}
-                {% if not mod.template %}
-                {{ mod.name }}
-                {% endif %}
-            {% endfor %}
-
-             {# Object of class Doctrine\ORM\PersistentCollection could not be converted to string #}
-            {# {% for temp in templates %}
-                {% for mod in temp.modules %}
-                {{ temp.modules }}
-                {% endfor %}
-            {% endfor %} #}
-
+            <img 
+                class="entity-logo partner" 
+                src="{{asset('img/optiLogo.svg')}}"
+                alt="opti-image"
+            >  
             <h3 class="count-entity">{{ pluralize(modules|length, 'Module OptiSport', 'Modules OptiSport') }}</h3>
 
             <div class="container table-container">
@@ -86,7 +53,8 @@
                         <th scope="col">Nom Module</th>
                         <th scope="col">Date Création</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Actions</th>
+                        <th scope="col">Suppression</th>
                     </tr>
                     </thead>
                     <tbody class="tbody-content table-group-divider">
@@ -107,6 +75,8 @@
                                     <button data-module="{{module.id}}" class="btn btn-outline-success activateModule activate">Activer</button> 
                                 {% endif %}
                                 <a class="btn btn-outline-success" href="{{ path('edit_module', {id: module.id}) }}">Modifier</a>
+                            </td>
+                            <td>
                                 <div>
                                     {{ include('mods/_delete_form.html.twig') }}
                                 </div>

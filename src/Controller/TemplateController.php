@@ -20,10 +20,10 @@ class TemplateController extends AbstractController
     #[Route('/', name: 'app_template')]
     public function index(TemplateRepository $templateRepository): Response
     {
-        // if (!$this->isGranted('ROLE_ADMIN')) 
-        // {
-        //     throw $this->createAccessDeniedException('Vous ne posséder pas les droits pour accéder à cette page');
-        // }
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Vous ne posséder pas les droits pour accéder à cette page');
+        }
 
         $templates = $templateRepository->findAll();
         
@@ -85,7 +85,7 @@ class TemplateController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($template);
             $em->flush();
-
+        
             return $this->redirectToRoute('app_template');
         }
 
@@ -105,7 +105,7 @@ class TemplateController extends AbstractController
         foreach($templateFiltered as $template)
         {
             $date = $template->getcreatedAt()->format('d-m-Y');
-            $modules = $template->getModules();
+            $modules = $template->getMods();
             $countMods = count($modules);
 
             $data =

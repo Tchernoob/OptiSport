@@ -55,14 +55,7 @@ class StructureType extends AbstractType
                 'class' => Department::class,
                 'multiple'=>false,
             ])
-            ->add('mods', EntityType::class,  [
-                'class' => Mods::class,
-                'query_builder' => function (ModsRepository $mr) use ($options) {
-                    return $mr->findPartnerModsInactive($options['partner_id']);
-                },
-                'multiple'=>true,
-                'required'=>false,
-            ])
+            
             ->add('user', UserType::class,
                 ['label' => false])
 

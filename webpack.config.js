@@ -21,7 +21,6 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addEntry('activateModules', './assets/js/activateModules.js')
     .addEntry('activatePartner', './assets/js/activatePartner.js')
     .addEntry('partnerFilter', './assets/js/partnerFilter.js')
     .addEntry('partnerStatusFilter', './assets/js/partnerStatusFilter.js')

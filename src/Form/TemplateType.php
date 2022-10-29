@@ -6,6 +6,7 @@ use App\Entity\Mods;
 use App\Entity\TemplateMods;
 use App\Entity\Template;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\ModsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,14 +23,18 @@ class TemplateType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom du Package',
                 'label_attr' => [
-                    'class' => 'user-label'
+                    'class' => 'label-template'
                 ],
                 'attr' => [
                     'class' => 'user-input'
                 ]])
-            ->add('modules', EntityType::class, [
+            ->add('mods', EntityType::class, [
                 'label' => "Modules Package :",
+                'label_attr' => array('class' => 'label-edit-structure'),
                 'class' => Mods::class,
+                'query_builder' => function (ModsRepository $mr) {
+                    return $mr->getModsActive();
+                },
                 'choice_label' => 'name',
                 'multiple' =>true,
                 'expanded' => true,
