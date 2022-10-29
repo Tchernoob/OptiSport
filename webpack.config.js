@@ -25,6 +25,7 @@ Encore
     .addEntry('activatePartner', './assets/js/activatePartner.js')
     .addEntry('partnerFilter', './assets/js/partnerFilter.js')
     .addEntry('partnerStatusFilter', './assets/js/partnerStatusFilter.js')
+    .addEntry('activateModule', './assets/js/activateModule.js')
     .addEntry('moduleFilter', './assets/js/moduleFilter.js')
     .addEntry('moduleStatusFilter', './assets/js/moduleStatusFilter.js')
     .addEntry('templateFilter.js', './assets/js/templateFilter.js')

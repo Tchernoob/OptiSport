@@ -28,8 +28,8 @@ class Template
     #[ORM\OneToMany(mappedBy: 'template', targetEntity: Structure::class)]
     private Collection $structures;
 
-    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'templates', orphanRemoval: true)]
-    private Collection $modules;
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'templates')]
+    private Collection $mods;
 
     #[ORM\Column]
     private ?bool $is_active = null;
@@ -38,7 +38,7 @@ class Template
     {
         $this->partners = new ArrayCollection();
         $this->structures = new ArrayCollection();
-        $this->modules = new ArrayCollection();
+        $this->mods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,23 +133,23 @@ class Template
     /**
      * @return Collection<int, Mods>
      */
-    public function getModules(): Collection
+    public function getMods(): Collection
     {
-        return $this->modules;
+        return $this->mods;
     }
 
-    public function addModule(Mods $module): self
+    public function addMods(Mods $mods): self
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
+        if (!$this->mods->contains($mods)) {
+            $this->mods[] = $mods;
         }
 
         return $this;
     }
 
-    public function removeModule(Mods $module): self
+    public function removeMods(Mods $mods): self
     {
-        $this->modules->removeElement($module);
+        $this->getMods()->removeElement($mods);
 
         return $this;
     }

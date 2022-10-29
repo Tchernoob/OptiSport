@@ -7,6 +7,7 @@ use App\Entity\Partner;
 use App\Entity\Structure;
 use App\Entity\Template;
 use App\Form\ModsType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
@@ -31,7 +32,7 @@ class ModsController extends AbstractController
         $moduleUsedInTemplates = [];
         foreach($templates as $template)
         {
-            $modsTemplate = $template->getModules();
+            $modsTemplate = $template->getMods();
             array_push($moduleUsedInTemplates, $modsTemplate);
         }
 
@@ -60,6 +61,65 @@ class ModsController extends AbstractController
             'modulesUnused' => $moduleUnused,
             'moduleUsedTemplate' => $moduleUsedInTemplates,
         ]);
+    }
+
+    #[Route('/activate/{id}', name: 'activate_module', methods: ['GET'])]
+    public function activateStructure(EntityManagerInterface $em, Mods $module) : Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
+        if($module->isIsActive())
+        {
+            $module->setIsActive(false);
+
+            $structures = $module->getStructures();
+            foreach($structures as $structure) 
+            {
+                $structure->removeMods($module);
+            }
+
+            $templates = $module->getTemplate();
+            foreach($templates as $template)
+            {
+                $template->removeMods($module);
+            }
+
+            $partners = $module->getPartners();
+            foreach($partners as $partner)
+            {
+                $partner->removeMods($module);
+            }
+        }
+        else 
+        {
+            $module->setIsActive(true);
+
+            $structures = $module->getStructures();
+            foreach($structures as $structure) 
+            {
+                $structure->addMods($module);
+            }
+
+            $templates = $module->getTemplate();
+            foreach($templates as $template)
+            {
+                $template->addMods($module);
+            }
+
+            $partners = $module->getPartners();
+            foreach($partners as $partner)
+            {
+                $partner->addMods($module);
+            }
+        }
+
+        $em->persist($module); 
+        $em->flush(); 
+
+        return new JsonResponse($module->isIsActive());
     }
 
     #[Route('/new', name: 'new_module')]
@@ -104,21 +164,8 @@ class ModsController extends AbstractController
     }
     
     #[Route('/delete/{id}', name: 'delete_module')]
-    public function deleteAdmin(Mods $module, PartnerRepository $pr, TemplateRepository $tr, StructureRepository $sr, EntityManagerInterface $entityManager) : Response
+    public function deleteAdmin(Mods $module, EntityManagerInterface $entityManager) : Response
     {  
-        
-        // foreach($pr as $partner) 
-        // {
-        //     $partner->removeMods($module);
-        // }
-        // foreach($tr as $template)
-        // {
-        //     $template->removeMods($module);
-        // }
-        // foreach($sr as $structure)
-        // {
-        //     $structure->removeMods($module);
-        // }
         $entityManager->remove($module);
         $entityManager->flush();
 

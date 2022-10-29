@@ -3,6 +3,7 @@
 {% block javascripts %}
         {{ encore_entry_script_tags('moduleFilter') }}
         {{ encore_entry_script_tags('moduleStatusFilter') }}
+        {{ encore_entry_script_tags('activateModule') }}
 		{{ parent() }}
  {% endblock %}
 
@@ -103,7 +104,7 @@
                                 {% if module.isActive %}
                                     <button data-module="{{module.id}}" class="btn btn-outline-danger activateModule deactivate">Désactiver</button> 
                                 {% else %}
-                                    <button data-module="{{module.id}}" class="btn btn-outline-success activateActivate activate">Activer</button> 
+                                    <button data-module="{{module.id}}" class="btn btn-outline-success activateModule activate">Activer</button> 
                                 {% endif %}
                                 <a class="btn btn-outline-success" href="{{ path('edit_module', {id: module.id}) }}">Modifier</a>
                                 <div>
