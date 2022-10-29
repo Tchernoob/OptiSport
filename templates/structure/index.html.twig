@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+        {{ encore_entry_script_tags('activateStructure') }}
+		{{ parent() }}
+ {% endblock %}
+
 {% block title %}Structures{% endblock %}
 
 {% block body %}
@@ -66,7 +71,7 @@
                         <th scope="col">Département</th>
                         <th scope="col">Date Création</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Package Associé</th>
+                        <th scope="col">Module(s) actif(s)</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -84,8 +89,8 @@
                                 {% else %}
                                     <td class="structureStatus">Inactive</td>
                                 {% endif %}
-                                {% if structure.template %}
-                                    <td class="structureTemplate">{{ structure.template }}</td>
+                                {% if structure.mods %}
+                                    <td class="structureTemplate">{{ structure.mods | length }}</td>
                                 {% else %}
                                     <td class="structureTemplate"> Aucun </td>
                                 {% endif %}
@@ -93,9 +98,9 @@
                         
                                     <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
                                     {% if structure.isActive %}
-                                        <button data-partner="{{structure.id}}" class="btn btn-outline-danger activateStructure deactivate">Désactiver</button> 
+                                        <button data-structure="{{structure.id}}" class="btn btn-outline-danger activateStructure deactivate">Désactiver</button> 
                                     {% else %}
-                                        <button data-partner="{{structure.id}}" class="btn btn-outline-success activateStructure activate">Activer</button> 
+                                        <button data-structure="{{structure.id}}" class="btn btn-outline-success activateStructure activate">Activer</button> 
                                     {% endif %}
                                 </td>
                             </tr>

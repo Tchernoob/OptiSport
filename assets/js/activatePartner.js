@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //on récupère tous les boutons ayant la classe activationModule
+    //on récupère tous les boutons ayant la classe activatPartner
     const activatePartnersBtns = document.querySelectorAll(".activatePartner");
     
     //pour chacun de ces boutons: 

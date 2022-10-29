@@ -6,6 +6,7 @@ use App\Entity\Structure;
 use App\Form\StructureEditRightType;
 use App\Form\StructureEditType;
 use App\Repository\StructureRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\ModsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,29 @@ class StructureController extends AbstractController
             'mods' => $modRepo->findBy(['is_active' => true]), 
             'structureMods' => $structureMods
         ]);
+    }
+
+    #[Route('/activate/{id}', name: 'activate_structure', methods: ['GET'])]
+    public function activateStructure(EntityManagerInterface $em, Structure $structure) : Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
+        if($structure->isIsActive())
+        {
+            $structure->setIsActive(false);
+        }
+        else 
+        {
+            $structure->setIsActive(true);
+        }
+
+        $em->persist($structure); 
+        $em->flush(); 
+
+        return new JsonResponse($structure->isIsActive());
     }
 
     #[Route('/{id}/edit', name: 'edit_structure')]
