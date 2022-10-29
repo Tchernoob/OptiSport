@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         // Pas oublié de modifié; pas fonctionnel
                         partnerTemplate.append(`${partner.template}`)
-
+                        
                         const partnerActions = document.createElement('td');
                         partnerActions.classList.add('partnerActions');
 

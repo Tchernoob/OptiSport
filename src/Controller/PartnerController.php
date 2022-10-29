@@ -110,7 +110,15 @@ class PartnerController extends AbstractController
         $userId = $user->getId();       
         $userpartnerId = $partner->getUser()->getId();
 
-        $templateModsPartner = $partner->getTemplate()->getMods();
+        
+        if ($partner->getTemplate())
+        {
+            $templateModsPartner = $partner->getTemplate()->getMods();
+        }
+        else 
+        {
+            $templateModsPartner = 0;
+        }
         
         if (!$this->isGranted('ROLE_ADMIN') && $userId != $userpartnerId)
         {

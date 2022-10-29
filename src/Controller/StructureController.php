@@ -47,6 +47,7 @@ class StructureController extends AbstractController
         $partnerUserId = $structure->getPartner()->getUser()->getId();
         $userId = $user->getId(); 
         $userStructureId = $structure->getUser()->getId();
+        $isActiveStructure = $structure->isIsActive();
 
         if ($userId !== $partnerUserId && $userId !== $userStructureId && !$this->isGranted('ROLE_ADMIN')) 
         {
@@ -57,7 +58,8 @@ class StructureController extends AbstractController
         return $this->render('structure/show.html.twig', [
             'structure' => $structure,
             'mods' => $modRepo->findBy(['is_active' => true]), 
-            'structureMods' => $structureMods
+            'structureMods' => $structureMods,
+            'isActiveStructure' => $isActiveStructure,
         ]);
     }
 

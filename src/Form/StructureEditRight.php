@@ -20,9 +20,6 @@ class StructureEditRightType extends AbstractType
                 'label' => "Modules Structure :",
                 'label_attr' => array('class' => 'label-edit-structure'),
                 'class' => Mods::class,
-                // 'query_builder' => function (ModsRepository $mr) use ($options) {
-                //     return $mr->findPartnerModsInactive($options['partner_id']);
-                // },
                 'query_builder' => function (ModsRepository $mr) {
                     return $mr->getModsActive();
                 },
