@@ -284,6 +284,16 @@ class PartnerController extends AbstractController
         foreach($partnerFiltered as $partner)
         {
             $date = $partner->getcreatedAt()->format('d-m-Y');
+            
+            $template = "";
+            if ($partner->getTemplate())
+            {
+                $template = $partner->getTemplate()->getName();
+            } 
+            else 
+            {
+                $template = "Aucun";
+            }
 
             $data =
             [
@@ -292,7 +302,7 @@ class PartnerController extends AbstractController
                 'status' => $partner->isIsActive(), 
                 'url' => $partner->getUrl(),
                 'createdAt' => $date,
-                'template' => $partner->getTemplate(),
+                'template' => $template,
             ];
 
             $result[] = $data; 
