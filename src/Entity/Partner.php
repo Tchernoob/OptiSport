@@ -43,8 +43,8 @@ class Partner
     #[ORM\ManyToOne(inversedBy: 'partners')]
     private ?Template $template = null;
 
-    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'partners', orphanRemoval: true)]
-    private $mods;
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'partners')]
+    private Collection $mods;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;

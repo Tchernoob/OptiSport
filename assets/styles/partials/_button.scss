@@ -1,9 +1,24 @@
 /* button */
 
+.btn {
+    border-radius: 0rem !important;
+}
 .btn-entity-show  {
     margin-right: 0.8rem;
 }
 
 .btn-lg, .btn-group-lg > .btn {
     font-size: 1.5rem !important;
+}
+
+.btn-del {
+    color: #dc3545;
+}
+
+.btn-del:hover {
+    color: white;
+}
+
+.btn-entity-content {
+    margin-right: 0.3rem;
 }

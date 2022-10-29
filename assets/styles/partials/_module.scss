@@ -83,3 +83,21 @@
 .status {
     margin-top: 1rem;
 }
+
+.module-img.show {
+    flex: 5;
+}
+
+.module-info.show {
+    flex: 5;
+}
+
+.del-container-entity {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.entity-text.details {
+    text-align: center;
+}

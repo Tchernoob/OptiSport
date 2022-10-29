@@ -21,6 +21,11 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
         $users = $userRepository->findAll();
         return $this->render('user/index.html.twig', [
             'users' => $users
@@ -113,16 +118,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            if($form->get('password')->getData() !== null) {
-
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-            }
 
             $entityManager->flush();
 

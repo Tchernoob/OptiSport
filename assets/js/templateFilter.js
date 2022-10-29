@@ -49,27 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         templateCreatedAt.classList.add('partnerCreatedAt');
                         templateCreatedAt.append(`${template.createdAt}`);
 
-                        const templateStatus = document.createElement('td');
-                        templateStatus.classList.add('partnerStatus');
-
-                        let status;
-                        let btnStatus;
-                        let clsBtn;
-
-                        // Selon le status du partenaire, on affiche le bouton d'action (activation/désactivation)  
-                        if (`${template.status}` == 'true') {
-                            status = 'Actif';
-                            // btnStatus = 'Désactivé';
-                            // clsBtn = ['btn', 'btn-outline-danger', 'activatePartner', 'deactivate'];
-
-                        } else {
-                            status = 'Inactif';
-                            // btnStatus = 'Activé'
-                            // clsBtn = ['btn', 'btn-outline-success', 'activatePartner', 'deactivate'];
-                        }
-
-                        templateStatus.append(status);
-
                         const templateModules = document.createElement('td');
                         templateModules.classList.add('templateModules');
                         templateModules.append(`${template.modules}`);
@@ -81,18 +60,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         templateActions.classList.add('partnerActions');
 
                         const a = document.createElement('a');
-                        const clsA = ['btn', 'btn-outline-primary', 'btn-entity-show'];
-                        // a.classList.add(...clsA);
-                        // a.href = `/template/${template['id']}`;
-                        a.text = 'Voir';
+                        const clsA = ['btn', 'btn-outline-success', 'btn-entity-show'];
+                        a.classList.add(...clsA);
+                        a.href = `/template/edit/${template['id']}`;
+                        a.text = 'Modifier';
 
+                        const formDelete = document.createElement('form');
+                        const clsFrmDlte = ['btn', 'btn-outline-danger'];
+                        formDelete.classList.add(...clsFrmDlte);
+                        formDelete.action = `/template/delete/${template['id']}`;
+                        formDelete.method = 'post';
+                        formDelete.onSubmit = "return confirm('Voulez-vous supprimer ce package Optisport ? Les partenaires perdront les droits aux modules compris dans ce package');";
+
+                        const btnDelete = document.createElement('button');
+                        btnDelete.classList.add('btn-del');
+                        btnDelete.textContent= 'Supprimer'
+
+                        formDelete.append(btnDelete);
                         // const activatePartnerBtn = document.createElement('button');
                         // activatePartnerBtn.classList.add(...clsBtn);
                         // activatePartnerBtn.append(btnStatus);
 
-                        templateActions.append(a);
+                        templateActions.append(a, formDelete);
 
-                        tr.append(idTd, templateName, templateCreatedAt, templateStatus, templateModules, templateActions);
+                        tr.append(idTd, templateName, templateCreatedAt, templateModules, templateActions);
                         tbodyResults.append(tr);
                         
                     }

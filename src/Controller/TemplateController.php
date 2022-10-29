@@ -20,6 +20,11 @@ class TemplateController extends AbstractController
     #[Route('/', name: 'app_template')]
     public function index(TemplateRepository $templateRepository): Response
     {
+        // if (!$this->isGranted('ROLE_ADMIN')) 
+        // {
+        //     throw $this->createAccessDeniedException('Vous ne posséder pas les droits pour accéder à cette page');
+        // }
+
         $templates = $templateRepository->findAll();
         
 
@@ -57,7 +62,8 @@ class TemplateController extends AbstractController
         if($form->handleRequest($request)->isSubmitted() && $form->isValid())
         {
             $template
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setIsActive(true);
 
             $manager->persist($template);
             $manager->flush();

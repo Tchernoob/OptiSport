@@ -29,10 +29,10 @@ class Mods
     private Collection $template;
 
     #[ORM\ManyToMany(targetEntity: Partner::class, mappedBy: 'mods')]
-    private $partners;
+    private Collection $partners;
 
     #[ORM\ManyToMany(targetEntity: Structure::class, mappedBy: 'mods')]
-    private $structures;
+    private Collection $structures;
 
 
     public function __construct()

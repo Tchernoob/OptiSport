@@ -2,7 +2,6 @@
 
 {% block javascripts %}
         {{ encore_entry_script_tags('templateFilter.js') }}
-        {{ encore_entry_script_tags('templateStatusFilter.js') }}
 		{{ parent() }}
  {% endblock %}
 
@@ -23,8 +22,7 @@
             </p>
 
             <div class="status">
-                <p class="module-text entity-status"> {{ templates | length }} package(s) OptiSport au total </p>
-                <p class="module-text entity-status"> {{ activeTemplates | length}} package(s) OptiSport actif </p>
+                <p class="module-text entity-status"> {{ templates | length }} package(s) OptiSport</p>
             </div>
             <div class="add-entity">
                 <a class="btn btn-outline-success btn-lg" href="{{ path('new_template') }}">Ajouter un package</a>
@@ -38,22 +36,12 @@
     <section class="module template">
         <div class="module-content entity">
             <nav class="list-filters">
-                <h3>Filtres</h3>
-                <div class="row">
-                    <div class="col-sm-8">
+                <h3 class="title-filter">Filtre</h3>
+                <div class="row row-filter-template">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label class="label">Nom Package</label>
                             <input type="text" class="form-control w100" id="templateName" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="label">Statut Package</label>
-                            <select class="form-control selectpicker" title="">
-                                <option value="1">actif</option>
-                                <option value = "0">Inactif</option>
-                                <option value="all">Tous</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -62,7 +50,7 @@
             <div class="home-hdr-sep"> 
             </div>
 
-            <h3 class="count-entity">{{ pluralize(templates|length, 'Packages OptiSport', 'Package OptiSport') }}</h3>
+            <h3 class="count-entity">{{ pluralize(templates|length, 'Package OptiSport', 'Packages OptiSport') }}</h3>
 
             <div class="container table-container">
                 <table class="table table-bordered table-container">
@@ -71,7 +59,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Nom Template</th>
                         <th scope="col">Date Création</th>
-                        <th scope="col">Status</th>
                         <th scope="col">Nombre Modules</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -84,23 +71,10 @@
                             <td class="templateId" scope="row">{{ template.id }}</td>
                             <td class="templateName">{{ template.name }}</td>
                             <td class="templateCreatedAt">{{ template.createdAt | date('d-m-Y') }}</td> 
-                            {% if template.isActive %}
-                                <td class="templateStatus">Actif</td>
-                            {% else %}
-                                <td class="templateStatus">Inactif</td>
-                            {% endif %}
                             <td class="templateModules" scope="row"> {{ template.modules | length}}</td>
-                            
                             <td class="templateActions">
-                                {# Pour Test
-                                {% for tunused in templateUnused %}
-                                    <p> {{tunused.name }}
-                                {% endfor %} #}
-
-                                <a class="btn btn-outline-success" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
-                                <div>
-                                    {{ include('template/_delete_form.html.twig') }}
-                                </div>
+                                <a class="btn btn-outline-success btn-entity-content" href="{{ path('edit_template', {id: template.id}) }}">Modifier</a>
+                                {{ include('template/_delete_form.html.twig') }}
                             </td>
                         </tr>
                     {% endfor %}

@@ -19,20 +19,27 @@ class TemplateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('is_active', CheckboxType::class, [
-                'label' => 'Template Actif',
-                'data' => true,
-                'required' => false,
-            ])
+            ->add('name', TextType::class, [
+                'label' => 'Nom du Package',
+                'label_attr' => [
+                    'class' => 'user-label'
+                ],
+                'attr' => [
+                    'class' => 'user-input'
+                ]])
             ->add('modules', EntityType::class, [
+                'label' => "Modules Package :",
                 'class' => Mods::class,
                 'choice_label' => 'name',
                 'multiple' =>true,
                 'expanded' => true,
                 'required' =>false,
             ])
-            ->add('Ajouter', SubmitType::class)
+            ->add('Ajouter', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-outline-success btn-lg btn-template'
+                ]
+            ])
         ;
     }
 

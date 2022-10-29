@@ -11,10 +11,8 @@ use App\Form\PartnerType;
 use App\Form\StructureType;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
-use App\Repository\StructureRepository;
 use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\AST\NewObjectExpression;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/partner')]
 class PartnerController extends AbstractController
@@ -30,6 +29,11 @@ class PartnerController extends AbstractController
     #[Route('/', name: 'app_partner')]
     public function index(PartnerRepository $partnerRepository): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
         $partners = $partnerRepository->findAll();
         $activePartners = $partnerRepository->findBy(['is_active' => true]);
         $notActivePartners = $partnerRepository->findBy(['is_active' => false]);
@@ -42,8 +46,14 @@ class PartnerController extends AbstractController
     }
 
     #[Route('/new', name: 'new_partner')]
-    public function new(Request $request, TemplateRepository $templateRepository, EntityManagerInterface $manager, SluggerInterface $slugger, MailerInterface $mailer) : Response
+    public function new(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, MailerInterface $mailer) : Response
     {
+
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
         $partner = new Partner();
         $user = new User(); 
         $user->setPartner($partner); 
@@ -84,8 +94,6 @@ class PartnerController extends AbstractController
                 ->text('http://127.0.0.1:8000/user/create-password/'.$formData->getUser()->getPassword());
             $mailer->send($message);
 
-
-
             return $this->redirectToRoute('app_partner_show', [
                 'id' => $partner->getId(), 
             ]);
@@ -96,10 +104,16 @@ class PartnerController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}', name: 'app_partner_show', methods: ['GET'])]
-    public function show(Partner $partner, ModsRepository $modRepo, TemplateRepository $templateRepository): Response
-    {       
+    public function show(Partner $partner, ModsRepository $modRepo, UserInterface $user): Response
+    {
+        $userId = $user->getId();       
+        $userpartnerId = $partner->getUser()->getId();
+        if (!$this->isGranted('ROLE_ADMIN') && $userId != $userpartnerId)
+        {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à voir le détail de ce partenaire');
+        }
+
         return $this->render('partner/show.html.twig', [
             'partner' => $partner,
             'structures' => $partner->getStructures(),
@@ -111,6 +125,11 @@ class PartnerController extends AbstractController
     #[Route('/newStructure/{id}', name: 'new_structure')]
     public function newStructure(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Partner $partner, MailerInterface $mailer): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
         $structure = new Structure();
         $user = new User();
         $user->setStructure($structure);
@@ -132,7 +151,6 @@ class PartnerController extends AbstractController
             $newName = $slugger->slug($file->getClientOriginalName()).'-'.uniqid().'.'.$extension;
             $file->move($this->getParameter('logo_structure_directory'), $newName);
 
-
             $structure
                 ->setLogo($newName)
                 ->setPartner($partner)
@@ -141,7 +159,6 @@ class PartnerController extends AbstractController
             
             $user
                 ->setRoles(['ROLE_USER_STRUCTURE']);
-
 
             //pour l'envoi dans la bdd
             $manager->persist($structure);
@@ -173,10 +190,13 @@ class PartnerController extends AbstractController
         ]);
     }
 
-
     #[Route('/mod/{mod}/activate/{id}', name: 'activate_mod', methods: ['GET'])]
     public function activateModule(EntityManagerInterface $em, Partner $partner, Mods $mod) : JsonResponse
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
 
         $exists = false; 
       
@@ -203,7 +223,6 @@ class PartnerController extends AbstractController
                 $struct->addMods($mod);
             }
         }
-
       
         $em->persist($partner); 
         $em->flush(); 
@@ -223,14 +242,28 @@ class PartnerController extends AbstractController
     #[Route('/activate/{id}', name: 'activate_partner', methods: ['GET'])]
     public function activatePartner(EntityManagerInterface $em, Partner $partner) : Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
+        $structures = $partner->getStructures();
 
         if($partner->isIsActive())
         {
             $partner->setIsActive(false);
+            foreach($structures as $structure)
+            {
+                $structure->setIsActive(false);
+            }
         }
         else 
         {
             $partner->setIsActive(true);
+            foreach($structures as $structure)
+            {
+                $structure->setIsActive(true);
+            }
         }
 
         $em->persist($partner); 
@@ -297,6 +330,10 @@ class PartnerController extends AbstractController
     #[Route('{id}/edit', name: 'edit_partner')]
     public function edit(Request $request, Partner $partner, EntityManagerInterface $manager, SluggerInterface $slugger,  MailerInterface $mailer) : Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
       
         $user = $partner->getUser(); 
         $user->setPartner($partner); 
@@ -336,8 +373,6 @@ class PartnerController extends AbstractController
                 ->subject('Votre partenaire a été modifié')
                 ->text('Un Administrateur vient de modifier votre partenaire');
             $mailer->send($message);
-
-
 
             return $this->redirectToRoute('app_partner_show', [
                 'id' => $partner->getId(), 

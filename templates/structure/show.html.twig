@@ -8,57 +8,72 @@
     {% include 'nav.html.twig' %}
 {% endif %}
 
-<header class="module-title-hdr entities">
-        {% if structure.logo is not empty %}
-        <img 
-            class="entity-logo partner" 
-            src="{{ asset('uploads/structure/logo/'~structure.logo)}}"
-            alt="opti-image"
-            >
-        {% else %}
-        <img
-            class="entity-logo partner" 
-            src="{{asset('img/opti-home.png')}}"
-            alt="opti-image"
-            >
-        {% endif %}    
-        <h1 class="title-entity partner">{{ structure.name }}</h1>
-        <div class="entity-text">
-            <p>{{structure.description}}</p>
-        </div>
+    <header class="module-title-hdr entities">
+      <img 
+          class="entity-logo partner" 
+          src="{{ asset('uploads/structure/logo/'~structure.logo)}}"
+          alt="opti-image"
+      >  
+      <h1 class="title-entity partner">{{ structure.name }}</h1>
+      <div class="entity-text">
+          <p> Structure crée le  {{ structure.createdAt | date('d-m-Y') }}
+          <p>{{structure.summary}}</p>
+      </div>
+
+      {% if app.user and ('ROLE_ADMIN') in app.user.roles %}
         <div class="entity-action-show">
             <a class="btn btn-outline-success btn-lg" href="{{ path('edit_structure', {id: structure.id}) }}">Modifier la structure</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ path('edit__module_right_structure', {id: structure.id}) }}">Modifier les droits de la structure</a>
         </div>
+      {% endif %}
     </header>
 
     <div class="home-hdr-sep"> 
     </div>
 
-    <section>
-      <div class="entity-information">
-        <h2 class="entity-information-title">Informations</h2>
-        <div class="entity-information-information">
-          <p> Partenaire crée le  {{ structure.createdAt | date('d-m-Y') }}
-          <p> Dernière Modification : {{ structure.updatedAt | date('d-m-Y') }}
-        
+
+    <section class="module-title-hdr entities">
+      <img 
+          class="entity-logo partner" 
+          src="{{asset('img/optiLogo.svg')}}"
+          alt="opti-image"
+      >  
+      <h3 class="title-entity partner">Package & Modules</h3>
+      <div class="entity-text details">
           {% if structure.template is not empty %}
-            <p class="entity-template"> Package utilisé : {{ structure.template }} </p>
+              <p class="module-text"> Package utilisé : {{ structure.template }} </p>
+          {% else %}
+              <p class="module-text"> Aucun Package rattaché à la structure {{ structure. name }} </p>
           {% endif %}
-
-        {# Pour Test #}
           {% for module in structureMods %}
-            <p> {{ module }} </p>
+              <p class="module-text btn btn-lg btn-primary "> {{ module }} </p>
           {% endfor %}
-
-        
-
-          {# {% if structures is not empty %}
-            <p class="entity-structure"> {{ partner.structures | length }} Structure(s) enregistrée(s) </p>
-          {% endif %} #}
-        </div>
       </div>
-        <div>
-            {{ include('structure/_delete_form.html.twig') }}
-        </div>
     </section>
+
+    <div class="home-hdr-sep"> 
+    </div>
+
+    <section class="module-title-hdr entities">
+      <img 
+          class="entity-logo partner" 
+          src="{{asset('img/optiLogo.svg')}}"
+          alt="opti-image"
+      >  
+      <h3 class="title-entity partner">Description</h3>
+      <div class="entity-text">
+          <p>{{structure.description}}</p>
+      </div>
+    </section>
+
+    <div class="home-hdr-sep"> 
+    </div>
+
+    <div class="del-container-entity">
+    {% if app.user and ('ROLE_ADMIN') in app.user.roles %}
+        {{ include('structure/_delete_form.html.twig') }}
+    {% else %}
+        <p class="entity-contact"> Pour toute modifications concernant votre structure {{ structure.name }}, veuillez contacter un Administrateur OptiSport </p>
+    </div>
+    {% endif %}
 {% endblock %}

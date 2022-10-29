@@ -28,7 +28,7 @@ Encore
     .addEntry('moduleFilter', './assets/js/moduleFilter.js')
     .addEntry('moduleStatusFilter', './assets/js/moduleStatusFilter.js')
     .addEntry('templateFilter.js', './assets/js/templateFilter.js')
-    .addEntry('templateStatusFilter.js', './assets/js/templateStatusFilter.js')
+    .addEntry('userRoleFilter.js', './assets/js/userRoleFilter.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

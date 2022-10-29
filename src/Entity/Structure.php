@@ -48,7 +48,7 @@ class Structure
     #[ORM\ManyToOne(inversedBy: 'structures')]
     private ?Template $template = null;
 
-    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'structures', orphanRemoval: true, cascade: ['all'])]
+    #[ORM\ManyToMany(targetEntity: Mods::class, inversedBy: 'structures')]
     private $mods;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

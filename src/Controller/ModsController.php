@@ -10,6 +10,7 @@ use App\Form\ModsType;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ModsRepository;
 use App\Repository\PartnerRepository;
+use App\Repository\StructureRepository;
 use App\Repository\TemplateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -103,9 +104,21 @@ class ModsController extends AbstractController
     }
     
     #[Route('/delete/{id}', name: 'delete_module')]
-    public function deleteAdmin(Mods $module, EntityManagerInterface $entityManager) : Response
+    public function deleteAdmin(Mods $module, PartnerRepository $pr, TemplateRepository $tr, StructureRepository $sr, EntityManagerInterface $entityManager) : Response
     {  
-
+        
+        // foreach($pr as $partner) 
+        // {
+        //     $partner->removeMods($module);
+        // }
+        // foreach($tr as $template)
+        // {
+        //     $template->removeMods($module);
+        // }
+        // foreach($sr as $structure)
+        // {
+        //     $structure->removeMods($module);
+        // }
         $entityManager->remove($module);
         $entityManager->flush();
 

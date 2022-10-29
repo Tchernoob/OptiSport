@@ -43,14 +43,56 @@ class OptiSportAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $user = $token->getUser();
+        
+        // Si l'utilisateur connecté est admin, il est redirigé vers la page home d'OptiSport
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        }
+        
+        // si l'utilisateur connecté est manager partenaire, il est redirigé vers la page de son partenaire
+        if (in_array('ROLE_MANAGER', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_partner_show', [
+                'id' => $token->getUser()->getPartner()->getId(),
+            ]));
+        }
+
+        // si l'utilisateur connecté est manager structure, il est redirigé vers la page de sa structure
+        if (in_array('ROLE_USER_STRUCTURE', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_structure_show', [
+                'id' => $token->getUser()->getStructure()->getId(),
+            ]));
+        }
+ 
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+ 
+        return new RedirectResponse($this->urlGenerator->generate('app_login'));
+    }
+
+    // public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    // {
+    //     $user = $token->getUser();
+
+    //     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+    //         return new RedirectResponse($targetPath);
+    //     }
+        
+        // if($this->User::class->getRoles()->hasRole('ROLE_ADMIN'))
+        // {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        // }
+
+        // if($this->User::class->getRoles()->hasRole('ROLE_MANAGER'))
+        // {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_partner'));
+        // }
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
-    }
+    //     return new RedirectResponse($this->urlGenerator->generate('app_home'));
+    // }
 
     protected function getLoginUrl(Request $request): string
     {
