@@ -27,17 +27,25 @@ class StructureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la Structure',
+            ])
             ->add('is_active', CheckboxType::class, [
                 'label' => 'Structure Active',
                 'data' => true,
                 'required' => false,
             ])
-            ->add('summary', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('url', TextType::class)
+            ->add('summary', TextType::class, [
+                'label' => 'Sommaire'
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description Complète'
+            ])
+            ->add('url', TextType::class, [
+                'label' => 'Lien Url de la Structure'
+            ])
             ->add('logo', FileType::class, [
-                'label' => 'logo',
+                'label' => 'Logo de la Structure',
                 'label_attr' => array('class' => 'btn btn-dark '),
                 'mapped' => false,
                 'required' => false,
@@ -52,6 +60,7 @@ class StructureType extends AbstractType
                 ],
             ])
             ->add('department', EntityType::class, [
+                'label' => 'Département',
                 'class' => Department::class,
                 'multiple'=>false,
             ])

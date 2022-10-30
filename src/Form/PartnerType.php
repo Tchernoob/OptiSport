@@ -38,11 +38,17 @@ class PartnerType extends AbstractType
                 'data' => true,
                 'required' => false,
             ])
-            ->add('summary', TextType::class)
-            ->add('description', TextType::class)
-            ->add('url', TextType::class)
+            ->add('summary', TextType::class, [
+                'label' => 'Sommaire'
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description Complète'
+            ])
+            ->add('url', TextType::class, [
+                'label' => 'Lien Url vers le Partenaire'
+            ])
             ->add('logo', FileType::class, [
-                'label' => 'logo',
+                'label' => 'Logo de la Structure',
                 'label_attr' => array('class' => 'btn btn-dark '),
                 'mapped' => false,
                 'required' => false,

@@ -30,7 +30,7 @@ class UserType extends AbstractType
 
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email Administrateur',
+                'label' => 'Email Utilisateur',
                 'label_attr' => [
                     'class' => 'user-label'
                 ],

@@ -36,7 +36,7 @@
             {% if isActivePartner %}
                 <a class="btn btn-outline-success btn-lg" href="{{ path('edit_structure', {id: structure.id}) }}">Modifier la structure</a>
                 {% if isActiveStructure %}
-                    <a class="btn btn-outline-success btn-lg" href="{{ path('edit__module_right_structure', {id: structure.id}) }}">Modifier les droits Structure</a>
+                    <a class="btn btn-outline-success btn-lg" href="{{ path('edit_module_right_structure', {id: structure.id}) }}">Modifier les droits de la structure</a>
                 {% endif %}
             {% endif %}
         </div>
