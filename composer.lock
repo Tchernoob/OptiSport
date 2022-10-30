@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9b9e3ad1f587300f8a6f4d2b4225126",
+    "content-hash": "8ad6ee9f0f4872d9cd9af6cb925721aa",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2235,6 +2235,32 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.6"
             },
             "time": "2022-01-14T11:51:13+00:00"
+        },
+        {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
+            "time": "2017-12-12T01:46:35+00:00"
         },
         {
             "name": "symfony/asset",
@@ -9643,16 +9669,16 @@
         },
         {
             "name": "symfony/debug-bundle",
-            "version": "v6.1.0",
+            "version": "v6.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug-bundle.git",
-                "reference": "46c6fea401634b4bcdf9bd46a29065e7ea83a62c"
+                "reference": "4084f86639bf0270d6dd2225fc8d7c317780dd6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/46c6fea401634b4bcdf9bd46a29065e7ea83a62c",
-                "reference": "46c6fea401634b4bcdf9bd46a29065e7ea83a62c",
+                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/4084f86639bf0270d6dd2225fc8d7c317780dd6b",
+                "reference": "4084f86639bf0270d6dd2225fc8d7c317780dd6b",
                 "shasum": ""
             },
             "require": {
@@ -9701,7 +9727,7 @@
             "description": "Provides a tight integration of the Symfony VarDumper component and the ServerLogCommand from MonologBridge into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug-bundle/tree/v6.1.0"
+                "source": "https://github.com/symfony/debug-bundle/tree/v6.1.3"
             },
             "funding": [
                 {
@@ -9717,7 +9743,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-15T14:25:02+00:00"
+            "time": "2022-07-20T13:46:29+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -9791,16 +9817,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.44.0",
+            "version": "v1.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588"
+                "reference": "e607f129d29a6c1e9a9e1ef3d229d653311d58f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/fa535d792e9261ae7a78481f643c00991e1d1588",
-                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/e607f129d29a6c1e9a9e1ef3d229d653311d58f3",
+                "reference": "e607f129d29a6c1e9a9e1ef3d229d653311d58f3",
                 "shasum": ""
             },
             "require": {
@@ -9864,7 +9890,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.44.0"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.47.0"
             },
             "funding": [
                 {
@@ -9880,7 +9906,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-13T17:37:04+00:00"
+            "time": "2022-10-04T15:05:10+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
