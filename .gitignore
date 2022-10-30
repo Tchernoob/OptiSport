@@ -8,7 +8,6 @@
 /var/
 /vendor/
 /public/uploads/
-/migrations/
 
 ###< symfony/framework-bundle ###
 
