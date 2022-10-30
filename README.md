@@ -35,8 +35,10 @@ Un Utilisateur Structure à accès à sa page Structure. Il peut vérifier les d
 
 Si vous travaillez en tant qu’administrateur Optisport, et que vous n’avez pas encore de compte, utilisez le compte administrateur : 
 
-admin@optisport.com
+Email : tpichon@optisport.com
+Mot de passe : Administrateur$3000
 
+adresse de l'application : http://agile-scrubland-69717.herokuapp.com/mods/
 
 ## Technologies utilisées 
 
