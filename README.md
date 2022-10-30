@@ -59,12 +59,12 @@ Ci-dessous un schéma de la base de données de l'application :
 
 ### Connexion
 
-![](/public/images/screen_profile.png)
-
-### Filtres
-
-![Huntee filtre](/public/images/login.png)
+![](/public/img/info/login.png)
 
 ### Header et Barre de Navigation 
 
-![](/public/images/header5.png)
+![](/public/img/info/header5.png)
+
+### Filtres
+
+![](/public/img/info/filtre.png)
