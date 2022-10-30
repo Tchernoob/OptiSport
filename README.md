@@ -51,20 +51,20 @@ Les envois de mail dans les différents cas d'utilisation ont été testés en l
 
 Ci-dessous un schéma de la base de données de l'application : 
 
-![Huntee db](/public/images/huntee-db.png)
+![](/public/img/info/OptiSport-bdd.png)
 
 ## Quelques visuels 
 
 ### Page d'accueil 
 
-### Page profil
+### Connexion
 
-![Huntee profil](/public/images/screen_profile.png)
+![](/public/images/screen_profile.png)
 
 ### Filtres
 
-![Huntee filtre](/public/images/screen_list_hunts.png)
+![Huntee filtre](/public/images/login.png)
 
-### Panel admin 
+### Header et Barre de Navigation 
 
-![Huntee admin](/public/images/screen_admin.png)
+![](/public/images/header5.png)
