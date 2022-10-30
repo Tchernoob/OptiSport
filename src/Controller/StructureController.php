@@ -160,7 +160,7 @@ class StructureController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit-module-right', name: 'edit__module_right_structure')]
+    #[Route('/{id}/edit-module-right', name: 'edit_module_right_structure')]
     public function editRight(Request $request, Structure $structure, EntityManagerInterface $manager, SluggerInterface $slugger,  MailerInterface $mailer) : Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
