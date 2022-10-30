@@ -20,7 +20,9 @@ Un service est appelé **module** chez Optisport.
 
 **Optisport** gère le droit des **modules** des partenaires, et des structures des partenaires. Les droits des partenaires et des structures dépendent de **l’abonnement** choisis. Il est tout à fait possible que les structures aient des accès différents aux modules. 
 
-Un abonnement est appelé **modules**chez Optisport. 
+![](/public/img/info/Optisport-Structure-Module-1.png)
+
+Un abonnement est appelé **modules** chez Optisport. 
 
 L’administrateur Optisport se connecte à l’aide de son adresse email et de son mot de passe. 
 
