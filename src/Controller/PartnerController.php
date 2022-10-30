@@ -184,13 +184,15 @@ class PartnerController extends AbstractController
             }
 
             $template = $partner->getTemplate(); 
-
-            $modsTemplate = $template->getMods();
-            foreach($modsTemplate as $modtemplate)
-            {
-                $structure->addMods($modtemplate);
-            }
             
+            if($template !== null)
+            {
+                $modsTemplate = $template->getMods();
+                foreach($modsTemplate as $modtemplate)
+                {
+                    $structure->addMods($modtemplate);
+                }
+            }
             $structure
                 ->setTemplate($template);
                     
