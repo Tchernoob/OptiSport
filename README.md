@@ -9,7 +9,7 @@ Les clients OptiSport sont les **Partenaires**  et les **Structures** du partena
 Un **Partenaire** est une enseigne de salle de Sport. 
 Exemple : L'orange Bleue. 
 
-Un **Partenaire** peut avoir une ou plusieurs **Structure**. Une Une **Structure** est une salle de sport. 
+Un **Partenaire** peut avoir une ou plusieurs **Structure**. Une **Structure** est une salle de sport. 
 Exemple : L'Orange Bleue - Lyon 8eme. 
 
 Chaque **Partenaire** peut avoir accès à son outil de gestion en ligne ou sont disponibles certains **services**.
@@ -27,7 +27,7 @@ Il gère également les **modules** et les **packages**. Il peut les modifier, l
 
 Un Utilisateur **partenaire**  à accès à sa page partenaire et aux pages des **structures** existantes liées à son **partenaire**. Il peut ainsi vérifier l'accès aux **modules** des **structures** et à l'abonnement actif sur ses entitées.
 
-Un Utilisateur Structure à accès à sa page Structure. Il peut les droits effectifs sur sa salle de sport.
+Un Utilisateur Structure à accès à sa page Structure. Il peut vérifier les droits effectifs sur sa salle de sport.
 
 Si vous travaillez en tant qu’administrateur Optisport, et que vous n’avez pas encore de compte, utilisez le compte administrateur : 
 
