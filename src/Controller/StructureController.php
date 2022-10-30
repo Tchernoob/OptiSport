@@ -8,6 +8,7 @@ use App\Form\StructureEditType;
 use App\Repository\StructureRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\ModsRepository;
+use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mime\Email;
@@ -28,14 +29,14 @@ class StructureController extends AbstractController
         {
             throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
         }
-
+        
         $structures = $structureRepository->findAll();
         $activeStructures = $structureRepository->findBy(['is_active' => true]);
         $notActiveStructures = $structureRepository->findBy(['is_active' => false]);
         return $this->render('structure/index.html.twig', [
             'structures' => $structures,
             'activeStructures' => $activeStructures,
-            'notActiveStructures' => $notActiveStructures
+            'notActiveStructures' => $notActiveStructures,
         ]);
     }
 
@@ -48,6 +49,7 @@ class StructureController extends AbstractController
         $userId = $user->getId(); 
         $userStructureId = $structure->getUser()->getId();
         $isActiveStructure = $structure->isIsActive();
+        $isActivePartner = $structure->getPartner()->isIsActive();
 
         if ($userId !== $partnerUserId && $userId !== $userStructureId && !$this->isGranted('ROLE_ADMIN')) 
         {
@@ -60,10 +62,11 @@ class StructureController extends AbstractController
             'mods' => $modRepo->findBy(['is_active' => true]), 
             'structureMods' => $structureMods,
             'isActiveStructure' => $isActiveStructure,
+            'isActivePartner' => $isActivePartner,
         ]);
     }
 
-    #[Route('/activate/{id}', name: 'activate_structure', methods: ['GET'])]
+    #[Route('/activate/{id}', name: 'activate_structure')]
     public function activateStructure(EntityManagerInterface $em, Structure $structure) : Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) 
@@ -71,19 +74,32 @@ class StructureController extends AbstractController
             throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
         }
 
-        if($structure->isIsActive())
-        {
-            $structure->setIsActive(false);
-        }
-        else 
-        {
-            $structure->setIsActive(true);
-        }
-
+        $structure->setIsActive(true);
+        
         $em->persist($structure); 
         $em->flush(); 
 
-        return new JsonResponse($structure->isIsActive());
+        return $this->redirectToRoute('app_structure_show', [
+            'id' => $structure->getId(),
+        ]);
+    }
+
+    #[Route('/deactivate/{id}', name: 'deactivate_structure')]
+    public function deactivateStructure(EntityManagerInterface $em, Structure $structure) : Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) 
+        {
+            throw $this->createAccessDeniedException('Seulement les administrateurs OptiSport peuvent accéder à cette partie de l\'application');
+        }
+
+        $structure->setIsActive(false);
+        
+        $em->persist($structure); 
+        $em->flush(); 
+
+        return $this->redirectToRoute('app_structure_show', [
+            'id' => $structure->getId(),
+        ]);
     }
 
     #[Route('/{id}/edit', name: 'edit_structure')]

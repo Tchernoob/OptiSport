@@ -16,6 +16,11 @@
       <h1 class="title-entity partner">{{ partner.name }}</h1>
       <div class="entity-text">
           <p> Partenaire crée le  {{ partner.createdAt | date('d-m-Y') }}
+          {% if partner.isActive %}
+            <p> Actif </p>
+          {% else %}
+            <p> Inactif </p>
+          {% endif %}
           <p>{{partner.summary}}</p>
       </div>
       <div class="entity-action-show">

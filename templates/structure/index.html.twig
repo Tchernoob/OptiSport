@@ -95,13 +95,12 @@
                                     <td class="structureTemplate"> Aucun </td>
                                 {% endif %}
                                 <td class="structureActions">
-                        
                                     <a class="btn btn-outline-primary btn-entity-show" href="{{ path('app_structure_show', {id: structure.id}) }}">Voir</a>
-                                    {% if structure.isActive %}
+                                    {# {% if structure.isActive %}
                                         <button data-structure="{{structure.id}}" class="btn btn-outline-danger activateStructure deactivate">Désactiver</button> 
                                     {% else %}
                                         <button data-structure="{{structure.id}}" class="btn btn-outline-success activateStructure activate">Activer</button> 
-                                    {% endif %}
+                                    {% endif %} #}
                                 </td>
                             </tr>
                         {% endfor %}

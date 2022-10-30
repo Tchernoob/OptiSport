@@ -17,14 +17,27 @@
       <h1 class="title-entity partner">{{ structure.name }}</h1>
       <div class="entity-text">
           <p> Structure crée le  {{ structure.createdAt | date('d-m-Y') }}
+          {% if structure.isActive %}
+            <p> Active </p>
+          {% else %}
+            <p> Inactive </p>
+          {% endif %}
+          {% if isActivePartner and not structure.isActive %}
+            {{ include('structure/_activate_form.html.twig') }}
+          {% endif %}
+          {% if structure.isActive %}
+            {{ include('structure/_deactivate_form.html.twig') }}
+          {% endif %}
           <p>{{structure.summary}}</p>
       </div>
 
       {% if app.user and ('ROLE_ADMIN') in app.user.roles %}
         <div class="entity-action-show">
-            <a class="btn btn-outline-success btn-lg" href="{{ path('edit_structure', {id: structure.id}) }}">Modifier la structure</a>
-            {% if isActiveStructure %}
-                <a class="btn btn-outline-success btn-lg" href="{{ path('edit__module_right_structure', {id: structure.id}) }}">Modifier les droits de la structure</a>
+            {% if isActivePartner %}
+                <a class="btn btn-outline-success btn-lg" href="{{ path('edit_structure', {id: structure.id}) }}">Modifier la structure</a>
+                {% if isActiveStructure %}
+                    <a class="btn btn-outline-success btn-lg" href="{{ path('edit__module_right_structure', {id: structure.id}) }}">Modifier les droits Structure</a>
+                {% endif %}
             {% endif %}
         </div>
       {% endif %}

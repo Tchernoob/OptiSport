@@ -107,6 +107,7 @@ class PartnerController extends AbstractController
     #[Route('/{id}', name: 'app_partner_show', methods: ['GET'])]
     public function show(Partner $partner, ModsRepository $modRepo, UserInterface $user): Response
     {
+
         $userId = $user->getId();       
         $userpartnerId = $partner->getUser()->getId();
 
