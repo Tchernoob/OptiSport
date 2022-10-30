@@ -1,38 +1,49 @@
-# OptiSportgit
+# OptiSport
 
 ## Présentation
 
 OptiSport est une société de gestion de salle de sport. Elle propose différents services et permet de gérer les droits aux services de ses clients.  
 
-Chaque **partenaire** peut avoir accès à son outil de gestion en ligne ou sont disponibles certains **services**.
+Les clients OptiSport sont les **Partenaires**  et les **Structures** du partenaire. 
+
+Un **Partenaire** est une enseigne de salle de Sport. 
+Exemple : L'orange Bleue. 
+
+Un **Partenaire** peut avoir une ou plusieurs **Structure**. Une Une **Structure** est une salle de sport. 
+Exemple : L'Orange Bleue - Lyon 8eme. 
+
+Chaque **Partenaire** peut avoir accès à son outil de gestion en ligne ou sont disponibles certains **services**.
 
 Un service est appelé **module** chez Optisport.  
 
 **Optisport** gère le droit des **modules** des partenaires, et des structures des partenaires. Les droits des partenaires et des structures dépendent de **l’abonnement** choisis. Il est tout à fait possible que les structures aient des accès différents aux modules. 
 
-Un abonnement est appelé **package** chez Optisport. 
+Un abonnement est appelé **modules**chez Optisport. 
 
-Tant qu'un administrateur n'a pas validé la publication, elle est visible par l'utilisateur  l'ayant proposée sur sa page profil "En attente de validation". 
+L’administrateur Optisport se connecte à l’aide de son adresse email et de son mot de passe. 
 
-Une fois validée, elles est visible sur la même page comme "Chasse validée" et accessible à tous les visiteurs du site. 
+Il peut créer les partenaires, les structures, gérer les droits aux **modules** des sructures et le droit à un **package** des partenaires.
+Il gère également les **modules** et les **packages**. Il peut les modifier, les activer, les supprimer. 
 
-Les chasses peuvent être filtrées par date, localisation et catégorie. 
+Un Utilisateur **partenaire**  à accès à sa page partenaire et aux pages des **structures** existantes liées à son **partenaire**. Il peut ainsi vérifier l'accès aux **modules** des **structures** et à l'abonnement actif sur ses entitées.
 
-On trouve également sur Huntee des articles d'actualité rédigés par l'administrateur qui peuvent, ou non, être liés à ces chasses au trésor. 
+Un Utilisateur Structure à accès à sa page Structure. Il peut les droits effectifs sur sa salle de sport.
 
-Sur chaque page d'une chasse au trésor ou d'une actualité il est possible pour les utilisateurs connectés de laisser des commentaires. 
+Si vous travaillez en tant qu’administrateur Optisport, et que vous n’avez pas encore de compte, utilisez le compte administrateur : 
+
+admin@optisport.com
+
 
 ## Technologies utilisées 
 
-Huntee a été réalisé avec Symfony. 
+OptiSport a été réalisé avec Symfony. 
 
-Le front du site a été réalisé en HTML, SASS et Javascript. 
+Le front du site a été réalisé en HTML, SASS, le framework Bootstrap et Javascript. 
 
-Le back-office a été construit à l'aide du bundle "EasyAdmin". 
 
 ### Mails 
 
-Les envois de mail dans le cas d'un mot de passe oublié ou d'un message envoyé depuis la page "Contact" ont été testés en local avec Mailhog. 
+Les envois de mail dans les différents cas d'utilisation ont été testés en local avec Mailhog. 
 
 ## Base de données 
 
