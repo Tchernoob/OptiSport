@@ -38,6 +38,8 @@ Si vous travaillez en tant qu’administrateur Optisport, et que vous n’avez p
 Email : tpichon@optisport.com
 Mot de passe : Administrateur$3000
 
+adresse de l'application : http://agile-scrubland-69717.herokuapp.com/mods/
+
 ## Technologies utilisées 
 
 OptiSport a été réalisé avec Symfony. 
