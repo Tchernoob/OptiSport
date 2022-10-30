@@ -12,6 +12,8 @@ Exemple : L'orange Bleue.
 Un **Partenaire** peut avoir une ou plusieurs **Structure**. Une **Structure** est une salle de sport. 
 Exemple : L'Orange Bleue - Lyon 8eme. 
 
+![](/public/img/info/Clients-Optisport-1.png)
+
 Chaque **Partenaire** peut avoir accès à son outil de gestion en ligne ou sont disponibles certains **services**.
 
 Un service est appelé **module** chez Optisport.  
@@ -54,8 +56,6 @@ Ci-dessous un schéma de la base de données de l'application :
 ## Quelques visuels 
 
 ### Page d'accueil 
-
-![Huntee home](/public/images/screen_home.png)
 
 ### Page profil
 
