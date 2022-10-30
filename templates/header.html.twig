@@ -2,7 +2,7 @@
     {% if app.user %}
         <div class="user-header">
             <p class=""> {{ app.user.firstName ~  app.user.lastName }}</p>
-            <a class="logout" href="{{ path('app_logout') }}">Se déconnecter</a>
+            <a class="btn btn-outline-primary btn-lg logout" href="{{ path('app_logout') }}">Se déconnecter</a>
         </div>
     {% endif %}
     <div class="opt-logo">

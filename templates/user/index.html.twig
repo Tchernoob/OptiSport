@@ -18,7 +18,7 @@
     
     <section class="module template">
         <div class="module-content entity">
-                        <nav class="list-filters">
+            {# <nav class="list-filters">
                 <h3>Filtres</h3>
                 <div class="row">
                     <div class="col-sm-4">
@@ -45,14 +45,20 @@
                         </div>
                     </div>
                 </div>
+            </nav> #}
 
+            {# <div class="home-hdr-sep"> 
+            </div> #}
 
-            </nav>
+            <img 
+                class="entity-logo partner" 
+                src="{{asset('img/optiLogo.svg')}}"
+                alt="opti-image"
+            >  
+            <h3 class="count-entity">{{ pluralize(users|length, 'Utilisateur OptiSport', 'Utilisateurs OptiSport') }}</h3>
 
             <div class="home-hdr-sep"> 
             </div>
-
-            <h3 class="count-entity">{{ pluralize(users|length, 'Utilisateur OptiSport', 'Utilisateurs OptiSport') }}</h3>
 
             <div class="container table-container">
                 <table class="table table-bordered table-container">
