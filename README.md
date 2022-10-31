@@ -38,7 +38,7 @@ Si vous travaillez en tant qu’administrateur Optisport, et que vous n’avez p
 Email : tpichon@optisport.com
 Mot de passe : Administrateur$3000
 
-adresse de l'application : http://agile-scrubland-69717.herokuapp.com/mods/
+adresse de l'application : http://agile-scrubland-69717.herokuapp.com
 
 ## Technologies utilisées 
 
@@ -72,3 +72,16 @@ Ci-dessous un schéma de la base de données de l'application :
 ### Filtres
 
 ![](/public/img/info/filtre.png)
+
+## Tester les droits des managers partenaires et des managers Structures
+
+Les envois de mail n'étant pas en Production actuellement, voici différents comptes Manager Partenaire. Pour rappel, un Manager Structure a accès à sa page partenaire et aux page des structure de son enseigne. Il n'a qu'un droit de lecture. 
+
+1. partenaire@basic-fit.com, mdp : Administrateur$3000
+2. partenaire@orange-bleu.fr, mdp : Administrateur$3000
+3. partenaire@magic-form.com, mdp : Administrateur$3000
+
+Voici différents comptes Manager Structure. Pour rappel, un Manager Structure n'a accès qu'à sa page Structure. Il n'a qu'un droit de lecture.
+
+1. orange-lyon@orange-bleue.fr, mdp : Administrateur$3000
+2. orange-marseille@orange-bleue.fr, mdp : Admnistrateur$3000
