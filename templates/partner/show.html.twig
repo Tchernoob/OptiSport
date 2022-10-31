@@ -23,10 +23,13 @@
           {% endif %}
           <p>{{partner.summary}}</p>
       </div>
-      <div class="entity-action-show">
-          <a class="btn btn-outline-success btn-lg" href="{{ path('edit_partner', {id: partner.id}) }}">Modifier le partenaire</a>
-          <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une Structure</a>
-      </div>
+
+      {% if app.user and ('ROLE_ADMIN' in app.user.roles) %}
+        <div class="entity-action-show">
+            <a class="btn btn-outline-success btn-lg" href="{{ path('edit_partner', {id: partner.id}) }}">Modifier le partenaire</a>
+            <a class="btn btn-outline-success btn-lg" href="{{ path('new_structure', {id: partner.id}) }}">Ajouter une Structure</a>
+        </div>
+      {% endif %}
     </header>
 
     <div class="home-hdr-sep"> 
