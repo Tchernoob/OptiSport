@@ -75,7 +75,7 @@ Ci-dessous un schéma de la base de données de l'application :
 
 ## Tester les droits des managers partenaires et des managers Structures
 
-Les envois de mail n'étant pas en Production actuellement, voici différents comptes Manager Partenaire. Pour rappel, un Manager Structure a accès à sa page partenaire et aux page des structure de son enseigne. Il n'a qu'un droit de lecture. 
+Les envois de mail n'étant pas en Production actuellement, voici différents comptes Manager Partenaire. Pour rappel, un Manager Structure a accès à sa page partenaire et aux pages des structures de son enseigne. Il n'a qu'un droit de lecture. 
 
 1. partenaire@basic-fit.com, mdp : Administrateur$3000
 2. partenaire@orange-bleu.fr, mdp : Administrateur$3000
